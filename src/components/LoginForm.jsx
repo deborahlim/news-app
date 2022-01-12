@@ -3,7 +3,7 @@ import Classes from "./Form.module.css";
 import { Form, Button } from "react-bootstrap";
 const LoginForm = () => {
   return (
-    <Form className={Classes["auth-form"]}>
+    <Form className={Classes.form}>
       <Form.Group className="mb-3" controlId="formGroupEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
