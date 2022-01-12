@@ -1,3 +1,28 @@
+const languages = {
+  Arabic: "ar",
+  German: "de",
+  Greek: "el",
+  English: "en",
+  Spanish: "es",
+  French: "fr",
+  Hebrew: "he",
+  Hindi: "hi",
+  Italian: "it",
+  Japanese: "ja",
+  Malayalam: "ml",
+  Marathi: "mr",
+  Dutch: "nl",
+  Norwegian: "no",
+  Portuguese: "pt",
+  Romanian: "ro",
+  Russian: "ru",
+  Swedish: "sv",
+  Tamil: "ta",
+  Telugu: "te",
+  Ukrainian: "uk",
+  Chinese: "zh",
+};
+
 const countries = {
   Australia: "au",
   Brazil: "br",
@@ -30,3 +55,16 @@ const countries = {
   "Ukraine	": "ua",
   "United States": "us",
 };
+
+const topics = [
+  "breaking-news",
+  "world",
+  "nation",
+  "business",
+  "technology",
+  "entertainment",
+  "sports",
+  "science and health",
+];
+
+export { languages, countries, topics };

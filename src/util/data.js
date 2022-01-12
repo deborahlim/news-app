@@ -1,4 +1,14 @@
-const fetchNewsData = async (endpoint, setNews, setError, setIsLoading) => {
+const fetchNewsData = async (
+  endpoint,
+  topic = "sports",
+  lang = "en",
+  country = "sg",
+  from = Date(),
+  to,
+  setData,
+  setError,
+  setIsLoading
+) => {
   // fetch api does not throw error automatically for error status codes
   try {
     setIsLoading(true);
@@ -6,7 +16,16 @@ const fetchNewsData = async (endpoint, setNews, setError, setIsLoading) => {
     // fetch returns promise
     // res is an object, gnews returns JSON object, easy to translate to JS objects
     const response = await fetch(
-      `https://gnews.io/api/v4/${endpoint}?token=${APITOKEN}`
+      `https://gnews.io/api/v4/${endpoint}?` +
+        new URLSearchParams({
+          topic,
+          lang,
+          country,
+          from,
+          to,
+          expand: "content",
+        }) +
+        `&token=${APITOKEN}`
     );
 
     if (!response.ok) {
@@ -15,7 +34,7 @@ const fetchNewsData = async (endpoint, setNews, setError, setIsLoading) => {
     }
 
     const data = await response.json();
-    setNews(data.articles);
+    setData(data.articles);
   } catch (err) {
     setError(err.message);
   }

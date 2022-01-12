@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import NewsCardGrid from "../components/NewsCardGrid";
 import Header from "../components/Header";
 import fetchNewsData from "../util/data";
+import Button from "react-bootstrap/Button";
 const Explore = () => {
   // setState
   // fetching data is a side effect which changes our components state
@@ -12,7 +13,17 @@ const Explore = () => {
   const [error, setError] = useState(null);
 
   const fetchNewsHandler = useCallback(async () => {
-    await fetchNewsData("top-headlines", setNews, setError, setIsLoading);
+    await fetchNewsData(
+      "top-headlines",
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      setNews,
+      setError,
+      setIsLoading
+    );
   }, []);
 
   // called whenever the dependencies listed below change
@@ -33,7 +44,10 @@ const Explore = () => {
   }
   return (
     <section>
-      <Header title="Explore News" />
+      <Header title="Top News Headlines" />
+      <Button variant="primary" onClick={fetchNewsHandler}>
+        Refresh
+      </Button>
       <section>{content}</section>
     </section>
   );
