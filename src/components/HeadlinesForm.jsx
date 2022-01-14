@@ -1,5 +1,6 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { languages, countries, topics } from "../util/options";
+import useInput from "../hooks/use-input";
 let splitString = (str, separator) => {
   let arr = str.split(separator);
   let transformedArr = arr.map((word) => {
@@ -8,13 +9,33 @@ let splitString = (str, separator) => {
   return transformedArr.join(" ");
 };
 const HeadlinesForm = (props) => {
-  console.log(languages);
+  // console.log(languages);
+  const { value: enteredLanguage, valueChangeHandler: languageChangedHandler } =
+    useInput((value) => true);
+
+  const { value: enteredCountry, valueChangeHandler: countryChangedHandler } =
+    useInput((value) => true);
+
+  const { value: enteredTopic, valueChangeHandler: topicChangedHandler } =
+    useInput((value) => true);
+
+  const submissionFormHandler = (event) => {
+    event.preventDefault();
+    console.log(enteredLanguage);
+    console.log(enteredCountry);
+    console.log(enteredTopic);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={submissionFormHandler}>
       <Row className="m-2 justify-content-center">
         <Col className="m-2" xs="auto">
-          <Form.Select aria-label="language select">
-            <option>Select Language</option>
+          <Form.Select
+            aria-label="language select"
+            value={enteredLanguage}
+            onChange={languageChangedHandler}
+          >
+            <option value="">Select Language</option>
             {Object.keys(languages).map((language) => {
               return (
                 <option value={languages[language]} key={language}>
@@ -25,8 +46,12 @@ const HeadlinesForm = (props) => {
           </Form.Select>
         </Col>
         <Col className="m-2" xs="auto">
-          <Form.Select aria-label="language select">
-            <option>Select Country</option>
+          <Form.Select
+            aria-label="language select"
+            value={enteredCountry}
+            onChange={countryChangedHandler}
+          >
+            <option value="">Select Country</option>
             {Object.keys(countries).map((country) => {
               return (
                 <option value={countries[country]} key={country}>
@@ -37,8 +62,12 @@ const HeadlinesForm = (props) => {
           </Form.Select>
         </Col>
         <Col className="m-2" xs="auto">
-          <Form.Select aria-label="language select">
-            <option>Select Topic</option>
+          <Form.Select
+            aria-label="topic select"
+            value={enteredTopic}
+            onChange={topicChangedHandler}
+          >
+            <option value="">Select Topic</option>
             {topics.map((topic) => {
               if (topic === "breaking-news") topic += " (default)";
 
@@ -53,7 +82,9 @@ const HeadlinesForm = (props) => {
           </Form.Select>
         </Col>
       </Row>
-      <Button variant="primary">Go</Button>
+      <Button variant="primary" type="submit">
+        Go
+      </Button>
     </Form>
   );
 };
