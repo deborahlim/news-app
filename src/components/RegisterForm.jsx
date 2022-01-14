@@ -1,25 +1,134 @@
 import Classes from "./Form.module.css";
 import { Form, Button } from "react-bootstrap";
+import useInput from "../hooks/use-input";
 const RegisterForm = () => {
+  // username
+  const {
+    value: enteredUsername,
+    isValid: enteredUsernameIsValid,
+    hasError: usernameInputHasError,
+    valueChangeHandler: usernameChangedHandler,
+    inputBlurHandler: usernameBlurHandler,
+    reset: resetUsernameInput,
+  } = useInput((value) => value.trim() !== "");
+
+  // email
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangedHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput,
+  } = useInput((value) => value.includes("@"));
+
+  // password
+  const {
+    value: enteredPassword,
+    isValid: enteredPasswordIsValid,
+    hasError: passwordInputHasError,
+    valueChangeHandler: passwordChangedHandler,
+    inputBlurHandler: passwordBlurHandler,
+    reset: resetPasswordInput,
+  } = useInput((value) => value.trim().length > 5);
+
+  // confirm password
+  const {
+    value: enteredConfirmPassword,
+    isValid: enteredConfirmPasswordIsValid,
+    hasError: confirmPasswordInputHasError,
+    valueChangeHandler: confirmPasswordChangedHandler,
+    inputBlurHandler: confirmPasswordBlurHandler,
+    reset: resetConfirmPasswordInput,
+  } = useInput((value) => value.trim() === enteredPassword);
+
+  let formIsValid = false;
+
+  if (
+    enteredUsernameIsValid &&
+    enteredEmailIsValid &&
+    enteredPasswordIsValid &&
+    enteredConfirmPasswordIsValid
+  ) {
+    formIsValid = true;
+  }
+
+  const submissionFormHandler = (event) => {
+    event.preventDefault();
+    if (!formIsValid) {
+      return;
+    }
+    console.log(enteredUsername);
+    console.log(enteredEmail);
+    console.log(enteredPassword);
+    console.log(enteredConfirmPassword);
+    resetUsernameInput();
+    resetEmailInput();
+    resetPasswordInput();
+    resetConfirmPasswordInput();
+  };
+
+  // const usernameInputClasses = usernameInputHasError ? "bg-danger" : "";
+
   return (
-    <Form className={Classes.form}>
+    <Form className={Classes.form} onSubmit={submissionFormHandler}>
       <Form.Group className="mb-3" controlId="formGroupUsername">
         <Form.Label>Username</Form.Label>
-        <Form.Control type="email" placeholder="Enter username" />
+        <Form.Control
+          type="text"
+          placeholder="Enter username"
+          value={enteredUsername}
+          onChange={usernameChangedHandler}
+          onBlur={usernameBlurHandler}
+          // className={usernameInputClasess}
+        />
+        {usernameInputHasError && (
+          <span className="text-danger">Username must not be empty</span>
+        )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formGroupEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control
+          type="email"
+          placeholder="Enter email"
+          value={enteredEmail}
+          onChange={emailChangedHandler}
+          onBlur={emailBlurHandler}
+        />
+        {emailInputHasError && (
+          <span className="text-danger">Please enter a valid email</span>
+        )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formGroupPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
+        <Form.Label>Password (at least 6 characters)</Form.Label>
+        <Form.Control
+          type="password"
+          placeholder="Enter Password"
+          value={enteredPassword}
+          onChange={passwordChangedHandler}
+          onBlur={passwordBlurHandler}
+        />
+        {passwordInputHasError && (
+          <span className="text-danger">
+            Please enter a valid password
+            <br />
+          </span>
+        )}
       </Form.Group>
       <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
         <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="password" placeholder="Contirm password" />
+        <Form.Control
+          type="password"
+          placeholder="Confirm password"
+          value={enteredConfirmPassword}
+          onChange={confirmPasswordChangedHandler}
+          onBlur={confirmPasswordBlurHandler}
+        />
+        {confirmPasswordInputHasError && (
+          <span className="text-danger">Passwords do not match</span>
+        )}
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="primary" type="submit" disabled={!formIsValid}>
         Submit
       </Button>
     </Form>
