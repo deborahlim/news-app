@@ -1,6 +1,6 @@
 const fetchNewsData = async (
   endpoint,
-  topic = "sports",
+  topic = "breaking-news",
   lang = "en",
   country = "sg",
   from = Date(),

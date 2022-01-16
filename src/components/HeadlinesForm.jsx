@@ -11,23 +11,36 @@ let splitString = (str, separator) => {
 const HeadlinesForm = (props) => {
   // console.log(languages);
   const { value: enteredLanguage, valueChangeHandler: languageChangedHandler } =
-    useInput((value) => true);
+    useInput(() => true);
 
   const { value: enteredCountry, valueChangeHandler: countryChangedHandler } =
-    useInput((value) => true);
+    useInput(() => true);
 
   const { value: enteredTopic, valueChangeHandler: topicChangedHandler } =
-    useInput((value) => true);
+    useInput(() => true);
+
+  const { value: enteredDateFrom, valueChangeHandler: dateFromChangedHandler } =
+    useInput(() => true);
+
+  const { value: enteredDateTo, valueChangeHandler: dateToChangedHandler } =
+    useInput(() => true);
 
   const submissionFormHandler = (event) => {
     event.preventDefault();
-    console.log(enteredLanguage);
-    console.log(enteredCountry);
-    console.log(enteredTopic);
+
+    const enteredData = {
+      enteredLanguage,
+      enteredCountry,
+      enteredTopic,
+      enteredDateFrom,
+      enteredDateTo,
+    };
+    console.log(enteredData);
+    props.onUpdateHeadlinesParams(enteredData);
   };
 
   return (
-    <Form onSubmit={submissionFormHandler}>
+    <Form onSubmit={submissionFormHandler} className="">
       <Row className="m-2 justify-content-center">
         <Col className="m-2" xs="auto">
           <Form.Select
@@ -82,8 +95,24 @@ const HeadlinesForm = (props) => {
           </Form.Select>
         </Col>
       </Row>
+      <Row className="m-2 justify-content-center">
+        <Col className="m-2" xs="auto">
+          <Form.Control
+            type="date"
+            value={enteredDateFrom}
+            onChange={dateFromChangedHandler}
+          ></Form.Control>
+        </Col>
+        <Col className="m-2" xs="auto">
+          <Form.Control
+            type="date"
+            value={enteredDateTo}
+            onChange={dateToChangedHandler}
+          ></Form.Control>
+        </Col>
+      </Row>
       <Button variant="primary" type="submit">
-        Go
+        Apply Changes
       </Button>
     </Form>
   );

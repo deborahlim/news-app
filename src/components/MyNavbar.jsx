@@ -10,15 +10,15 @@ const MyNavbar = () => {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand href="#home">News App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/welcome">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/explore">
-              Explore
+            <Nav.Link as={NavLink} to="/top-headlines">
+              Top Headlines
             </Nav.Link>
             <NavDropdown title="Account" id="basic-nav-dropdown">
               <NavDropdown.Item as={NavLink} to="/register">

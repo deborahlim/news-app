@@ -5,6 +5,7 @@ import NewsCardGrid from "../components/NewsCardGrid";
 import Header from "../components/Header";
 import fetchNewsData from "../util/data";
 import Button from "react-bootstrap/Button";
+import HeadlinesForm from "../components/HeadlinesForm";
 const Explore = () => {
   // setState
   // fetching data is a side effect which changes our components state
@@ -12,14 +13,15 @@ const Explore = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchNewsHandler = useCallback(async () => {
+  const fetchNewsHandler = useCallback(async (enteredData = {}) => {
+    console.log(enteredData);
     await fetchNewsData(
       "top-headlines",
-      undefined,
-      undefined,
-      undefined,
-      undefined,
-      undefined,
+      enteredData.enteredTopic,
+      enteredData.enteredLanguage,
+      enteredData.enteredCountry,
+      enteredData.enteredDateFrom,
+      enteredData.enteredDateTo,
       setNews,
       setError,
       setIsLoading
@@ -45,9 +47,8 @@ const Explore = () => {
   return (
     <section>
       <Header title="Top News Headlines" />
-      <Button variant="primary" onClick={fetchNewsHandler}>
-        Refresh
-      </Button>
+      <HeadlinesForm onUpdateHeadlinesParams={fetchNewsHandler} />
+
       <section>{content}</section>
     </section>
   );

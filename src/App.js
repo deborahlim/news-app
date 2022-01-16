@@ -2,7 +2,7 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import MyNavbar from "./components/MyNavbar";
 import Welcome from "./pages/Welcome";
-import Explore from "./pages/Explore";
+import Headlines from "./pages/Headlines";
 import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -28,8 +28,8 @@ function App() {
           <Route path="/welcome">
             <Welcome />
           </Route>
-          <Route path="/explore">
-            <Explore />
+          <Route path="/top-headlines">
+            <Headlines />
           </Route>
           <Route path="/my-account/:accountId">
             <Account />
