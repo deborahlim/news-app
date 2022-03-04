@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react";
 import NewsCardGrid from "../components/NewsCardGrid";
 import Header from "../components/Header";
 import fetchNewsData from "../util/data";
-import Button from "react-bootstrap/Button";
 import HeadlinesForm from "../components/HeadlinesForm";
 const Explore = () => {
   // setState

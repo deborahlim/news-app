@@ -7,7 +7,15 @@ const NewsCard = (props) => {
       <Card>
         <Card.Img variant="top" src={props.article.image} />
         <Card.Body>
-          <Card.Title>{props.article.title}</Card.Title>
+          <Card.Title>
+            <Card.Link
+              href={props.article.url}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              {props.article.title}
+            </Card.Link>
+          </Card.Title>
           <Card.Text>{props.article.description}</Card.Text>
         </Card.Body>
       </Card>

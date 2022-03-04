@@ -1,3 +1,4 @@
+import news from "../api/news";
 const fetchNewsData = async (
   endpoint,
   topic = "breaking-news",
@@ -12,29 +13,25 @@ const fetchNewsData = async (
   // fetch api does not throw error automatically for error status codes
   try {
     setIsLoading(true);
-    const APITOKEN = "c34de8834e0d778983345e6135186dee";
+
     // fetch returns promise
     // res is an object, gnews returns JSON object, easy to translate to JS objects
-    const response = await fetch(
-      `https://gnews.io/api/v4/${endpoint}?` +
-        new URLSearchParams({
-          topic,
-          lang,
-          country,
-          from,
-          to,
-          expand: "content",
-        }) +
-        `&token=${APITOKEN}`
-    );
 
-    if (!response.ok) {
+    const response = await news.get(endpoint, {
+      params: {
+        topic,
+        lang,
+        country,
+        from,
+        to,
+      },
+    });
+    console.log(response);
+    if (response.status !== 200) {
       // if error is thrown, proceed to catch block immediately
       throw new Error("Something went wrong");
     }
-
-    const data = await response.json();
-    setData(data.articles);
+    setData(response.data.articles);
   } catch (err) {
     setError(err.message);
   }
