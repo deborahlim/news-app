@@ -1,5 +1,5 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { languages, countries, topics } from "../util/options";
+import { languages, countries } from "../util/options";
 import useInput from "../hooks/use-input";
 let splitString = (str, separator) => {
   let arr = str.split(separator);
@@ -16,9 +16,6 @@ const HeadlinesForm = (props) => {
   const { value: enteredCountry, valueChangeHandler: countryChangedHandler } =
     useInput(() => true);
 
-  const { value: enteredTopic, valueChangeHandler: topicChangedHandler } =
-    useInput(() => true);
-
   const { value: enteredDateFrom, valueChangeHandler: dateFromChangedHandler } =
     useInput(() => true);
 
@@ -31,11 +28,10 @@ const HeadlinesForm = (props) => {
     const enteredData = {
       enteredLanguage,
       enteredCountry,
-      enteredTopic,
       enteredDateFrom,
       enteredDateTo,
     };
-    console.log(enteredData);
+
     props.onUpdateHeadlinesParams(enteredData);
   };
 
@@ -69,26 +65,6 @@ const HeadlinesForm = (props) => {
               return (
                 <option value={countries[country]} key={country}>
                   {country}
-                </option>
-              );
-            })}
-          </Form.Select>
-        </Col>
-        <Col className="m-2" xs="auto">
-          <Form.Select
-            aria-label="topic select"
-            value={enteredTopic}
-            onChange={topicChangedHandler}
-          >
-            <option value="">Select Topic</option>
-            {topics.map((topic) => {
-              if (topic === "breaking-news") topic += " (default)";
-
-              let transformedTopic = splitString(topic, " ");
-
-              return (
-                <option value={topic} key={topic}>
-                  {transformedTopic}
                 </option>
               );
             })}

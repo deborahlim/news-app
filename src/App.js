@@ -1,17 +1,15 @@
 import { Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
-import MyNavbar from "./components/MyNavbar";
-import Welcome from "./pages/Welcome";
-import Headlines from "./pages/Headlines";
+import Navbar from "./components/Navbar";
+import News from "./pages/News";
 import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import FAQ from "./pages/FAQ";
 
 function App() {
   return (
     <div className="App">
-      <MyNavbar />
+      <Navbar />
       {/* Registering routes with react router:  
       react router evaluates the URL and renders the correct components based on that URL. 
       e.g. react Welcome component is only display if the URL path is /welcome
@@ -23,13 +21,31 @@ function App() {
         that is matched first top to bottom*/}
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/welcome"></Redirect>
+            <Redirect to="/breaking-news"></Redirect>
           </Route>
-          <Route path="/welcome">
-            <Welcome />
+          <Route path="/breaking-news">
+            <News endpoint="top-headlines" topic="breaking-news" />
           </Route>
-          <Route path="/top-headlines">
-            <Headlines />
+          <Route path="/world">
+            <News endpoint="top-headlines" topic="world" />
+          </Route>
+          <Route path="/business">
+            <News endpoint="top-headlines" topic="business" />
+          </Route>
+          <Route path="/tech">
+            <News endpoint="top-headlines" topic="tech" />
+          </Route>
+          <Route path="/entertainment">
+            <News endpoint="top-headlines" topic="entertainment" />
+          </Route>
+          <Route path="/science">
+            <News endpoint="top-headlines" topic="science" />
+          </Route>
+          <Route path="/health">
+            <News endpoint="top-headlines" topic="health" />
+          </Route>
+          <Route path="/sports">
+            <News endpoint="top-headlines" topic="sports" />
           </Route>
           <Route path="/my-account/:accountId">
             <Account />
@@ -39,9 +55,6 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
-          </Route>
-          <Route path="/FAQ">
-            <FAQ />
           </Route>
         </Switch>
       </main>

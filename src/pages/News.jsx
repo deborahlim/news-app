@@ -5,27 +5,30 @@ import NewsCardGrid from "../components/NewsCardGrid";
 import Header from "../components/Header";
 import fetchNewsData from "../util/data";
 import HeadlinesForm from "../components/HeadlinesForm";
-const Explore = () => {
+import Categories from "../components/Categories";
+const News = ({ endpoint, topic }) => {
   // setState
   // fetching data is a side effect which changes our components state
   const [news, setNews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchNewsHandler = useCallback(async (enteredData = {}) => {
-    console.log(enteredData);
-    await fetchNewsData(
-      "top-headlines",
-      enteredData.enteredTopic,
-      enteredData.enteredLanguage,
-      enteredData.enteredCountry,
-      enteredData.enteredDateFrom,
-      enteredData.enteredDateTo,
-      setNews,
-      setError,
-      setIsLoading
-    );
-  }, []);
+  const fetchNewsHandler = useCallback(
+    async (enteredData = {}) => {
+      await fetchNewsData(
+        endpoint,
+        topic,
+        enteredData.enteredLanguage,
+        enteredData.enteredCountry,
+        enteredData.enteredDateFrom,
+        enteredData.enteredDateTo,
+        setNews,
+        setError,
+        setIsLoading
+      );
+    },
+    [topic, endpoint]
+  );
 
   // called whenever the dependencies listed below change
   useEffect(() => {
@@ -45,7 +48,8 @@ const Explore = () => {
   }
   return (
     <section>
-      <Header title="Top News Headlines" />
+      <Header title="Top Headlines" />
+      <Categories />
       <HeadlinesForm onUpdateHeadlinesParams={fetchNewsHandler} />
 
       <section>{content}</section>
@@ -53,4 +57,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default News;
