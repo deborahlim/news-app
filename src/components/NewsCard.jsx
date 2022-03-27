@@ -5,7 +5,7 @@ const NewsCard = (props) => {
   const { image, url, description, title } = props.article;
   return (
     <Col className="g-4">
-      <Card>
+      <Card className="card">
         <Card.Img variant="top" src={image} className="card-img" />
         <Card.Body>
           <Card.Title>

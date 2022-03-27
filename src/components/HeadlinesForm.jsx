@@ -1,13 +1,7 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { languages, countries } from "../util/options";
 import useInput from "../hooks/use-input";
-let splitString = (str, separator) => {
-  let arr = str.split(separator);
-  let transformedArr = arr.map((word) => {
-    return !(word === "and") ? word[0].toUpperCase() + word.slice(1) : word;
-  });
-  return transformedArr.join(" ");
-};
+
 const HeadlinesForm = (props) => {
   // console.log(languages);
   const { value: enteredLanguage, valueChangeHandler: languageChangedHandler } =
@@ -16,11 +10,11 @@ const HeadlinesForm = (props) => {
   const { value: enteredCountry, valueChangeHandler: countryChangedHandler } =
     useInput(() => true);
 
-  const { value: enteredDateFrom, valueChangeHandler: dateFromChangedHandler } =
-    useInput(() => true);
+  // const { value: enteredDateFrom, valueChangeHandler: dateFromChangedHandler } =
+  //   useInput(() => true);
 
-  const { value: enteredDateTo, valueChangeHandler: dateToChangedHandler } =
-    useInput(() => true);
+  // const { value: enteredDateTo, valueChangeHandler: dateToChangedHandler } =
+  //   useInput(() => true);
 
   const submissionFormHandler = (event) => {
     event.preventDefault();
@@ -28,8 +22,8 @@ const HeadlinesForm = (props) => {
     const enteredData = {
       enteredLanguage,
       enteredCountry,
-      enteredDateFrom,
-      enteredDateTo,
+      // enteredDateFrom,
+      // enteredDateTo,
     };
 
     props.onUpdateHeadlinesParams(enteredData);
@@ -71,7 +65,7 @@ const HeadlinesForm = (props) => {
           </Form.Select>
         </Col>
       </Row>
-      <Row className="m-2 justify-content-center">
+      {/* <Row className="m-2 justify-content-center">
         <Col className="m-2" xs="auto">
           <Form.Control
             type="date"
@@ -86,7 +80,7 @@ const HeadlinesForm = (props) => {
             onChange={dateToChangedHandler}
           ></Form.Control>
         </Col>
-      </Row>
+      </Row> */}
       <Button variant="primary" type="submit">
         Apply Changes
       </Button>

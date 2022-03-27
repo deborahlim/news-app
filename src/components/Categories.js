@@ -1,10 +1,11 @@
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
+import SideBarNav from "./SidebarNav";
 const Categories = () => {
   return (
     <Container fluid>
-      <Nav className="justify-content-center">
+      <Nav defaultActiveKey="/breaking-news" className="justify-content-center">
         <Nav.Link as={NavLink} to="/breaking-news">
           Breaking News
         </Nav.Link>
@@ -29,9 +30,7 @@ const Categories = () => {
         <Nav.Link as={NavLink} to="/sports">
           Sports
         </Nav.Link>
-        <Nav.Link as={NavLink} to="/sports">
-          More +
-        </Nav.Link>
+        <SideBarNav name="+More" />
       </Nav>
     </Container>
   );
