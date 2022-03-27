@@ -56,6 +56,9 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+          {/* <Route path="/search">
+            <News endpoint="search" topic={term} />
+          </Route> */}
         </Switch>
       </main>
     </div>

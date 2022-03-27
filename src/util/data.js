@@ -1,7 +1,8 @@
 import news from "../api/news";
 const fetchNewsData = async (
-  endpoint,
+  endpoint="top-headlines",
   topic = "breaking-news",
+  q,
   lang = "en",
   country = "sg",
   from = Date(),
@@ -13,13 +14,12 @@ const fetchNewsData = async (
   // fetch api does not throw error automatically for error status codes
   try {
     setIsLoading(true);
-
     // fetch returns promise
     // res is an object, gnews returns JSON object, easy to translate to JS objects
-
-    const response = await news.get(endpoint, {
+const response = await news.get(endpoint, {
       params: {
         topic,
+        q,
         lang,
         country,
         from,

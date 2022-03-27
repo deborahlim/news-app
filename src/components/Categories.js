@@ -2,7 +2,7 @@ import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import { NavLink } from "react-router-dom";
 import SideBarNav from "./SidebarNav";
-const Categories = () => {
+const Categories = ({onUpdateSearchTerm}) => {
   return (
     <Container fluid>
       <Nav defaultActiveKey="/breaking-news" className="justify-content-center">
@@ -30,7 +30,7 @@ const Categories = () => {
         <Nav.Link as={NavLink} to="/sports">
           Sports
         </Nav.Link>
-        <SideBarNav name="+More" />
+        <SideBarNav name="+More" onPassUpSearchTerm={(searchTerm, endpoint="search") => onUpdateSearchTerm(searchTerm, endpoint)} />
       </Nav>
     </Container>
   );

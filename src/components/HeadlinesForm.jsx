@@ -18,14 +18,13 @@ const HeadlinesForm = (props) => {
 
   const submissionFormHandler = (event) => {
     event.preventDefault();
-
     const enteredData = {
       enteredLanguage,
       enteredCountry,
       // enteredDateFrom,
       // enteredDateTo,
     };
-
+console.log(enteredData)
     props.onUpdateHeadlinesParams(enteredData);
   };
 

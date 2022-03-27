@@ -2,11 +2,20 @@ import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
 
-const SideBarNav = ({ name }) => {
+import Container  from "react-bootstrap/Container";
+
+import SearchForm  from "./SearchForm";
+
+
+const SideBarNav = ({ name, onPassUpSearchTerm }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const onReceivedSearchTerm = (searchTerm) => {
+    onPassUpSearchTerm(searchTerm)
+  }
   return (
     <>
       <Nav.Link variant="primary" onClick={handleShow}>
@@ -18,11 +27,14 @@ const SideBarNav = ({ name }) => {
           <Offcanvas.Title>News App</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Nav defaultActiveKey="/breaking-news" className="flex-column">
+        <SearchForm onSearchFormSubmit={onReceivedSearchTerm}/>
+      <Container>
+          <Nav className="flex-column">
+            <Nav.Link>Saved Topics</Nav.Link>
             <Nav.Link>Latest</Nav.Link>
-            <Nav.Link>Trending</Nav.Link>
-            <Nav.Link>Languages</Nav.Link>
           </Nav>
+          
+          </Container>
         </Offcanvas.Body>
       </Offcanvas>
     </>

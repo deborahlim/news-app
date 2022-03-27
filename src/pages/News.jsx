@@ -14,10 +14,11 @@ const News = ({ endpoint, topic }) => {
   const [error, setError] = useState(null);
 
   const fetchNewsHandler = useCallback(
-    async (enteredData = {}) => {
+    async (enteredData = {}, endpoint) => {
       await fetchNewsData(
         endpoint,
         topic,
+        enteredData.enteredSearchTerm,
         enteredData.enteredLanguage,
         enteredData.enteredCountry,
         enteredData.enteredDateFrom,
@@ -49,7 +50,7 @@ const News = ({ endpoint, topic }) => {
   return (
     <section>
       <Header title="Top Headlines" />
-      <Categories />
+      <Categories onUpdateSearchTerm={fetchNewsHandler}/>
       <HeadlinesForm onUpdateHeadlinesParams={fetchNewsHandler} />
 
       <section>{content}</section>
