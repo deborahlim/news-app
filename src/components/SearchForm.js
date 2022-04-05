@@ -9,8 +9,10 @@ const SearchForm = () => {
   const [term, setTerm] = useState("");
   let history = useHistory();
   const submissionFormHandler = (event) => {
+    console.log(event.target)
     event.preventDefault();
     history.push(`/news/search/${term}`);
+    event.target.firstChild.blur();
     setTerm("");
   };
   return (
@@ -20,14 +22,10 @@ const SearchForm = () => {
         placeholder="Type anything here..."
         value={term}
         onChange={(event) => setTerm(event.target.value)}
-        onKeyPress={(e) => e.code === 13 && submissionFormHandler}
         className="me-2"
         aria-label="Search"
       />
-      <Button
-        variant="outline-success"
-        type="submit"
-      >
+      <Button variant="outline-success" type="submit">
         Search
       </Button>
     </Form>
