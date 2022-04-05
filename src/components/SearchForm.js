@@ -9,11 +9,11 @@ const SearchForm = () => {
   const [term, setTerm] = useState("");
   let history = useHistory();
   const submissionFormHandler = (event) => {
-    console.log(event.target)
     event.preventDefault();
-    history.push(`/news/search/${term}`);
-    event.target.childNodes.forEach(node => node.blur());
     setTerm("");
+    history.push(`/news/search/${term}`);
+    event.target.childNodes.forEach((node) => node.blur());
+
   };
   return (
     <Form className="d-flex" onSubmit={submissionFormHandler}>
