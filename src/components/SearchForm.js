@@ -12,7 +12,7 @@ const SearchForm = () => {
     console.log(event.target)
     event.preventDefault();
     history.push(`/news/search/${term}`);
-    event.target.firstChild.blur();
+    event.target.childNodes.forEach(node => node.blur());
     setTerm("");
   };
   return (
