@@ -4,18 +4,12 @@ import Nav from "react-bootstrap/Nav";
 
 import Container  from "react-bootstrap/Container";
 
-import SearchForm  from "./SearchForm";
-
-
-const SideBarNav = ({ name, onPassUpSearchTerm }) => {
+const SideBarNav = ({ name}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const onReceivedSearchTerm = (searchTerm) => {
-    onPassUpSearchTerm(searchTerm)
-  }
   return (
     <>
       <Nav.Link variant="primary" onClick={handleShow}>
@@ -27,7 +21,7 @@ const SideBarNav = ({ name, onPassUpSearchTerm }) => {
           <Offcanvas.Title>News App</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-        <SearchForm onSearchFormSubmit={onReceivedSearchTerm}/>
+
       <Container>
           <Nav className="flex-column">
             <Nav.Link>Saved Topics</Nav.Link>
