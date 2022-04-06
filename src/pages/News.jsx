@@ -9,6 +9,7 @@ import { Switch, Redirect, Route, useRouteMatch } from "react-router-dom";
 
 const News = ({ title }) => {
   let { path } = useRouteMatch();
+
   return (
     <section>
       <Header title={title} />
