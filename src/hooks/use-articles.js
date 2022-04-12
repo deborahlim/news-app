@@ -4,6 +4,7 @@ import news from "../api/news";
 const useArticles = () => {
   const [articles, setArticles] = useState([]);
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchArticles = useCallback(async (parameters) => {
     let query = "";
@@ -11,6 +12,7 @@ const useArticles = () => {
       query = parameters.topic;
     }
 try {
+  setIsLoading(true);
   let response = await news.get(`/${parameters.endpoint}`, {
     params: {
       topic: parameters.topic,
@@ -20,6 +22,7 @@ try {
     },
   });
   setArticles(response.data.articles);
+  setIsLoading(false);
 }
 catch(error) {
   setError(error);
@@ -28,7 +31,7 @@ catch(error) {
 
   }, []);
 
-  return [articles, fetchArticles, error];
+  return [articles, fetchArticles, error, isLoading];
 };
 
 export default useArticles;

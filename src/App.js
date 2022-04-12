@@ -10,11 +10,12 @@ import News from "./pages/News";
 import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-
+import GoogleAuth from "./components/GoogleAuth";
 function App() {
   return (
     <Router>
       <div className="App">
+        <GoogleAuth/>
         <Navbar />
         {/* Registering routes with react router:  
       react router evaluates the URL and renders the correct components based on that URL. 

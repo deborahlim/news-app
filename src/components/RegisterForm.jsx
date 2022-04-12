@@ -1,7 +1,14 @@
 import Classes from "./Form.module.css";
 import { Form, Button } from "react-bootstrap";
 import useInput from "../hooks/use-input";
+
+import { useEffect } from "react";
+import GoogleAuth from "./GoogleAuth";
 const RegisterForm = () => {
+  function onSignIn() {
+    let cred = { id: "...", password: "..." };
+    window.google.accounts.id.storeCredential(cred);
+  }
   // username
   const {
     value: enteredUsername,
@@ -58,18 +65,22 @@ const RegisterForm = () => {
     if (!formIsValid) {
       return;
     }
-    console.log(enteredUsername);
-    console.log(enteredEmail);
-    console.log(enteredPassword);
-    console.log(enteredConfirmPassword);
     resetUsernameInput();
     resetEmailInput();
     resetPasswordInput();
     resetConfirmPasswordInput();
   };
 
-  // const usernameInputClasses = usernameInputHasError ? "bg-danger" : "";
-
+  useEffect(() => {
+    console.log("Register Form effect ran");
+    if (window.onload && window.google) {
+      console.log("render button");
+      window.google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large", text: "continue_with" } // customization attributes
+      );
+    }
+  }, []);
   return (
     <Form className={Classes.form} onSubmit={submissionFormHandler}>
       <Form.Group className="mb-3" controlId="formGroupUsername">
@@ -131,6 +142,9 @@ const RegisterForm = () => {
       <Button variant="primary" type="submit" disabled={!formIsValid}>
         Submit
       </Button>
+      <p className="lead my-3">OR</p>
+      <GoogleAuth />
+      <div style={{display: 'inline-block'}} id="buttonDiv" onClick={onSignIn}></div>
     </Form>
   );
 };

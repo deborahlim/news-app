@@ -1,8 +1,17 @@
-import React from "react";
-import Classes from "./Form.module.css";
+import React, { useEffect } from "react";
+
 import { Form, Button } from "react-bootstrap";
+
+import Classes from "./Form.module.css";
 import useInput from "../hooks/use-input";
+import GoogleAuth from "./GoogleAuth";
+
 const LoginForm = () => {
+  function onSignIn() {
+    let cred = { id: "...", password: "..." };
+    window.google.accounts.id.storeCredential(cred);
+
+  }
   // email
   const {
     value: enteredEmail,
@@ -33,11 +42,21 @@ const LoginForm = () => {
     if (!formIsValid) {
       return;
     }
-    console.log(enteredEmail);
-    console.log(enteredPassword);
     resetEmailInput();
     resetPasswordInput();
   };
+
+  useEffect(() => {
+    console.log("Login Form effect ran");
+    if (window.onload && window.google) {
+      console.log("render button");
+    window.google.accounts.id.renderButton(
+      document.getElementById("buttonDiv"),
+      { theme: "outline", size: "large", text: "continue_with" } // customization attributes
+    );
+    }
+  }, []);
+
   return (
     <Form className={Classes.form} onSubmit={submissionFormHandler}>
       <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -71,6 +90,9 @@ const LoginForm = () => {
       <Button variant="primary" type="submit" disabled={!formIsValid}>
         Submit
       </Button>
+      <p className="lead my-3">OR</p>
+      <GoogleAuth/>
+      <div style={{display: 'inline-block'}} id="buttonDiv" onClick={onSignIn}></div>
     </Form>
   );
 };

@@ -17,7 +17,7 @@ const NewsCardGrid = () => {
     q: "",
   });
 
-  const [articles, fetchArticles, error] = useArticles([]);
+  const [articles, fetchArticles, error, isLoading] = useArticles([]);
 
   useEffect(() => {
     if (parameters.topic !== topic || parameters.endpoint !== endpoint) {
@@ -26,8 +26,11 @@ const NewsCardGrid = () => {
     }
   }, [fetchArticles, parameters, topic, endpoint]);
 
-  let content = "loading...";
-  if (articles.length > 0) {
+  let content;
+  if (isLoading) {
+    content = "Loading..."
+  }
+  else if (articles.length > 0) {
     console.log(articles);
     content = articles.map((article) => {
       return <NewsCard article={article} key={article.publishedAt} />;

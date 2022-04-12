@@ -11,8 +11,11 @@ import SearchForm from "./SearchForm";
 // NavLink is like Link component but it also sets a CSS class on the active anchor item
 import { NavLink } from "react-router-dom";
 
-
 const MyNavbar = () => {
+  function onSignout() {
+    window.google.accounts.id.disableAutoSelect();
+    
+  }
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
@@ -29,7 +32,7 @@ const MyNavbar = () => {
             My Account
           </NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item as={NavLink} to="/">
+          <NavDropdown.Item as={NavLink} to="/" onClick={onSignout}>
             Log Out
           </NavDropdown.Item>
         </NavDropdown>
