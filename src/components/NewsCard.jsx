@@ -31,7 +31,7 @@ const NewsCard = (props) => {
             <Card.Text>{truncateDescription(description)}</Card.Text>
           </Card.Body>
           <Card.Footer className="text-muted">
-            Published {formatDate(publishedAt)}
+            Published At: {formatDate(publishedAt)}
             <br/>
             Source: {source.name} 
           </Card.Footer>
