@@ -1,7 +1,16 @@
 .card {
   height: 500px;
+  cursor: pointer;
+}
+
+.card:hover {
+  background-color: rgb(243, 237, 237);
+  transform: translateY(-1px);
+  transition: .2s
 }
 
 .card-img {
-  height: 350px;
+  height: 200px;
 }
+
+

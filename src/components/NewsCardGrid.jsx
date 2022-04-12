@@ -28,9 +28,8 @@ const NewsCardGrid = () => {
 
   let content;
   if (isLoading) {
-    content = "Loading..."
-  }
-  else if (articles.length > 0) {
+    content = "Loading...";
+  } else if (articles.length > 0) {
     console.log(articles);
     content = articles.map((article) => {
       return <NewsCard article={article} key={article.publishedAt} />;
@@ -48,10 +47,9 @@ const NewsCardGrid = () => {
       ></Header>
       <Row
         xs={1}
-        md={2}
+        sm={2}
         lg={3}
-        xl={4}
-        className="g-4 m-3 justify-content-center"
+        className="g-4 m-5 px-5 justify-content-center"
       >
         {content}
       </Row>
