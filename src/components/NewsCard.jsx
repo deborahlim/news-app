@@ -9,11 +9,20 @@ const NewsCard = (props) => {
     let indexOfDot = description.search(reDot);
     return description.slice(0, indexOfDot + 1);
   };
-
-  const formatDate = (str) => {
-    const dateTimeStr = new Date(str).toString();
-    return dateTimeStr;
+  function msToTime(ms) {
+    let seconds = (ms / 1000).toFixed(1);
+    let minutes = (ms / (1000 * 60)).toFixed(1);
+    let hours = (ms / (1000 * 60 * 60)).toFixed(1);
+    let days = (ms / (1000 * 60 * 60 * 24)).toFixed(1);
+    if (seconds < 60) return seconds + " Sec";
+    else if (minutes < 60) return minutes + " Min";
+    else if (hours < 24) return hours + " Hrs";
+    else return days + " Days";
   }
+  const timeElaspedSinceCurr = (str) => {
+    const timeElasped = msToTime(Date.now() - new Date(str).getTime());
+    return timeElasped;
+  };
 
   return (
     <Col className="g-4">
@@ -31,9 +40,9 @@ const NewsCard = (props) => {
             <Card.Text>{truncateDescription(description)}</Card.Text>
           </Card.Body>
           <Card.Footer className="text-muted">
-            Published At: {formatDate(publishedAt)}
-            <br/>
-            Source: {source.name} 
+            {timeElaspedSinceCurr(publishedAt)} ago
+            <br />
+            Source: {source.name}
           </Card.Footer>
         </Card>
       </Card.Link>

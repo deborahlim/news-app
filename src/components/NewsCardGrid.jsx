@@ -49,7 +49,7 @@ const NewsCardGrid = () => {
         xs={1}
         sm={2}
         lg={3}
-        className="g-4 m-5 px-5 justify-content-center"
+        className="g-4 m-5 px-md-5 justify-content-center"
       >
         {content}
       </Row>
