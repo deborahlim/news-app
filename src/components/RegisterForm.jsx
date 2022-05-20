@@ -4,12 +4,21 @@ import useInput from "../hooks/use-input";
 
 import { useEffect } from "react";
 import GoogleAuth from "./GoogleAuth";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { userSelector, clearState, updateState, signupUser } from "../redux/userSlice";
 const RegisterForm = () => {
-  function onSignIn() {
-    let cred = { id: "...", password: "..." };
-    window.google.accounts.id.storeCredential(cred);
-  }
-  // username
+  // function onSignIn() {
+  //   let cred = { id: "...", password: "..." };
+  //   window.google.accounts.id.storeCredential(cred);
+  // }
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { isFetching, isSuccess, isError, errorMessage } =
+    useSelector(userSelector);
+
+    // username
   const {
     value: enteredUsername,
     isValid: enteredUsernameIsValid,
@@ -65,6 +74,14 @@ const RegisterForm = () => {
     if (!formIsValid) {
       return;
     }
+
+    let enteredData = {
+      name: enteredUsername,
+      email: enteredEmail,
+      password: enteredPassword,
+      passwordConfirm: enteredConfirmPassword
+    }
+    dispatch(signupUser(enteredData));
     resetUsernameInput();
     resetEmailInput();
     resetPasswordInput();
@@ -80,8 +97,20 @@ const RegisterForm = () => {
         { theme: "outline", size: "large", text: "continue_with" } // customization attributes
       );
     }
-  }, []);
-  return (
+    if(isSuccess) {
+      dispatch(updateState());
+      history.push("/");
+    }
+    if(isError) {
+      console.log(errorMessage);
+      dispatch(clearState());
+    }
+  }, [isSuccess, isError, dispatch, errorMessage, history]);
+  return isFetching ? "Signing up..." : (
+    <div>
+      {isError && (
+          <span className="text-danger">{errorMessage}</span>
+        )}
     <Form className={Classes.form} onSubmit={submissionFormHandler}>
       <Form.Group className="mb-3" controlId="formGroupUsername">
         <Form.Label>Username</Form.Label>
@@ -144,8 +173,9 @@ const RegisterForm = () => {
       </Button>
       <p className="lead my-3">OR</p>
       <GoogleAuth />
-      <div style={{display: 'inline-block'}} id="buttonDiv" onClick={onSignIn}></div>
+      <div style={{display: 'inline-block'}} id="buttonDiv"></div>
     </Form>
+    </div>
   );
 };
 

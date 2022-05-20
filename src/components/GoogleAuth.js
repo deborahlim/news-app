@@ -1,15 +1,30 @@
 import { useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { decodeJwt } from "jose";
+
+import { signupUser } from "../redux/userSlice";
+
 const GoogleAuth = () => {
   const { path } = useRouteMatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     console.log("Google sign in Effect ran");
     function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
+      // response.credential is the JWT token
+      const responsePayload = decodeJwt(response.credential);
+      console.dir(responsePayload);
+      const data = {
+        name: responsePayload.name,
+        email: responsePayload.email,
+        password: responsePayload.sub,
+        passwordConfirm: responsePayload.sub,
+      };
+      dispatch(signupUser(data));
     }
 
-    window.onload = async function () {
+    window.onload = function () {
       console.log("window loaded");
       window.google.accounts.id.initialize({
         client_id:
@@ -24,10 +39,8 @@ const GoogleAuth = () => {
           { theme: "outline", size: "large", text: "continue_with" } // customization attributes
         );
       }
-
-      // window.google.accounts.id.storeCredential(Credential, onSignIn);
     };
-  }, [path]);
+  }, [path, dispatch]);
 
   return null;
 };
