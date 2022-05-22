@@ -3,7 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { decodeJwt } from "jose";
 
-import { signupUser } from "../redux/userSlice";
+import { googleAuthUser} from "../redux/userSlice";
 
 const GoogleAuth = () => {
   const { path } = useRouteMatch();
@@ -21,7 +21,7 @@ const GoogleAuth = () => {
         password: responsePayload.sub,
         passwordConfirm: responsePayload.sub,
       };
-      dispatch(signupUser(data));
+      dispatch(googleAuthUser(data));
     }
 
     window.onload = function () {

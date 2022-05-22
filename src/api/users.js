@@ -7,15 +7,43 @@ const users = axios.create({
   },
 });
 
-const signupUserAPI = async (data) => {
-  console.log(data);
+const googleAuthAPI = async (data) => {
   try {
     const response = await users.post("signup", data);
-    console.log(response.response.data);
-    return response.response.data;
+    return response.data;
   } catch (err) {
-    console.dir(err.response.data);
+    if (err.response.data.error.code === 11000) {
+      try {
+        console.log(data.email, data.password);
+        const response = await users.post("login", {
+          email: data.email,
+          password: data.password,
+        });
+        return response.data;
+      } catch (err) {
+        throw err.response.data.message;
+      }
+    }
     throw err.response.data.message;
   }
 };
-export { signupUserAPI };
+
+const signupUserAPI = async (data) => {
+  try {
+    const response = await users.post("signup", data);
+    return response.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
+const loginUserAPI = async (data) => {
+  try {
+    const response = await users.post("login", data);
+    return response.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
+export { loginUserAPI, signupUserAPI, googleAuthAPI };

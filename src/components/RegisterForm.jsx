@@ -6,7 +6,12 @@ import { useEffect } from "react";
 import GoogleAuth from "./GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { userSelector, clearState, updateState, signupUser } from "../redux/userSlice";
+import {
+  userSelector,
+  clearState,
+  updateState,
+  signupUser,
+} from "../redux/userSlice";
 const RegisterForm = () => {
   // function onSignIn() {
   //   let cred = { id: "...", password: "..." };
@@ -18,7 +23,7 @@ const RegisterForm = () => {
   const { isFetching, isSuccess, isError, errorMessage } =
     useSelector(userSelector);
 
-    // username
+  // username
   const {
     value: enteredUsername,
     isValid: enteredUsernameIsValid,
@@ -79,8 +84,8 @@ const RegisterForm = () => {
       name: enteredUsername,
       email: enteredEmail,
       password: enteredPassword,
-      passwordConfirm: enteredConfirmPassword
-    }
+      passwordConfirm: enteredConfirmPassword,
+    };
     dispatch(signupUser(enteredData));
     resetUsernameInput();
     resetEmailInput();
@@ -97,84 +102,85 @@ const RegisterForm = () => {
         { theme: "outline", size: "large", text: "continue_with" } // customization attributes
       );
     }
-    if(isSuccess) {
+    if (isSuccess) {
+      console.log("SUCCESS!!!");
       dispatch(updateState());
       history.push("/");
     }
-    if(isError) {
+    if (isError) {
       console.log(errorMessage);
       dispatch(clearState());
     }
   }, [isSuccess, isError, dispatch, errorMessage, history]);
-  return isFetching ? "Signing up..." : (
+  return isFetching ? (
+    "Signing up..."
+  ) : (
     <div>
-      {isError && (
-          <span className="text-danger">{errorMessage}</span>
-        )}
-    <Form className={Classes.form} onSubmit={submissionFormHandler}>
-      <Form.Group className="mb-3" controlId="formGroupUsername">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Enter username"
-          value={enteredUsername}
-          onChange={usernameChangedHandler}
-          onBlur={usernameBlurHandler}
-          // className={usernameInputClasess}
-        />
-        {usernameInputHasError && (
-          <span className="text-danger">Username must not be empty</span>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formGroupEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Enter email"
-          value={enteredEmail}
-          onChange={emailChangedHandler}
-          onBlur={emailBlurHandler}
-        />
-        {emailInputHasError && (
-          <span className="text-danger">Please enter a valid email</span>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formGroupPassword">
-        <Form.Label>Password (at least 6 characters)</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Enter Password"
-          value={enteredPassword}
-          onChange={passwordChangedHandler}
-          onBlur={passwordBlurHandler}
-        />
-        {passwordInputHasError && (
-          <span className="text-danger">
-            Please enter a valid password
-            <br />
-          </span>
-        )}
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-        <Form.Label>Confirm Password</Form.Label>
-        <Form.Control
-          type="password"
-          placeholder="Confirm password"
-          value={enteredConfirmPassword}
-          onChange={confirmPasswordChangedHandler}
-          onBlur={confirmPasswordBlurHandler}
-        />
-        {confirmPasswordInputHasError && (
-          <span className="text-danger">Passwords do not match</span>
-        )}
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={!formIsValid}>
-        Submit
-      </Button>
-      <p className="lead my-3">OR</p>
-      <GoogleAuth />
-      <div style={{display: 'inline-block'}} id="buttonDiv"></div>
-    </Form>
+      {isError && <span className="text-danger">{errorMessage}</span>}
+      <Form className={Classes.form} onSubmit={submissionFormHandler}>
+        <Form.Group className="mb-3" controlId="formGroupUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            value={enteredUsername}
+            onChange={usernameChangedHandler}
+            onBlur={usernameBlurHandler}
+            // className={usernameInputClasess}
+          />
+          {usernameInputHasError && (
+            <span className="text-danger">Username must not be empty</span>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formGroupEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Enter email"
+            value={enteredEmail}
+            onChange={emailChangedHandler}
+            onBlur={emailBlurHandler}
+          />
+          {emailInputHasError && (
+            <span className="text-danger">Please enter a valid email</span>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formGroupPassword">
+          <Form.Label>Password (at least 6 characters)</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter Password"
+            value={enteredPassword}
+            onChange={passwordChangedHandler}
+            onBlur={passwordBlurHandler}
+          />
+          {passwordInputHasError && (
+            <span className="text-danger">
+              Please enter a valid password
+              <br />
+            </span>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Confirm password"
+            value={enteredConfirmPassword}
+            onChange={confirmPasswordChangedHandler}
+            onBlur={confirmPasswordBlurHandler}
+          />
+          {confirmPasswordInputHasError && (
+            <span className="text-danger">Passwords do not match</span>
+          )}
+        </Form.Group>
+        <Button variant="primary" type="submit" disabled={!formIsValid}>
+          Submit
+        </Button>
+        <p className="lead my-3">OR</p>
+        <GoogleAuth />
+        <div style={{ display: "inline-block" }} id="buttonDiv"></div>
+      </Form>
     </div>
   );
 };
