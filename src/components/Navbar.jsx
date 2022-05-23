@@ -1,7 +1,6 @@
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
 import SearchForm from "./SearchForm";
 // import link component,
 // which renders anchor tags and react router
@@ -12,6 +11,7 @@ import SearchForm from "./SearchForm";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { clearState } from "../redux/userSlice";
+import { toast } from "react-toastify";
 const MyNavbar = () => {
   let history = useHistory();
   let dispatch = useDispatch();
@@ -19,12 +19,12 @@ const MyNavbar = () => {
     window.google.accounts.id.disableAutoSelect();
     dispatch(clearState());
     history.push("/");
+    toast.success("You have been logged out!")
   };
 
   const isSignedIn = useSelector((state) => {
-    return state.user.name !== "";
+    return state.user.token !== null;
   });
-  console.log(isSignedIn);
 
   return (
     <Navbar bg="light" expand="md">

@@ -4,6 +4,9 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
+
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./App.css";
 import Navbar from "./components/Navbar";
 import News from "./pages/News";
@@ -11,10 +14,12 @@ import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import GoogleAuth from "./components/GoogleAuth";
+
 function App() {
   return (
     <Router>
       <div className="App">
+        <ToastContainer autoClose={2000}/>
         <GoogleAuth/>
         <Navbar />
         {/* Registering routes with react router:  

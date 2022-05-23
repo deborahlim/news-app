@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 
 import { Form, Button } from "react-bootstrap";
-
+import { toast } from "react-toastify";
 import Classes from "./Form.module.css";
 import useInput from "../hooks/use-input";
 import GoogleAuth from "./GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
+
 import {
   userSelector,
   clearState,
@@ -17,9 +18,7 @@ import {
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const { isFetching, isSuccess, isError, errorMessage } =
-    useSelector(userSelector);
+  const { isSuccess, name, isFetching, isError, errorMessage, isGoogleAuth } = useSelector(userSelector);
   function onSignIn() {
     let cred = { id: "...", password: "..." };
     window.google.accounts.id.storeCredential(cred);
@@ -54,29 +53,31 @@ const LoginForm = () => {
     if (!formIsValid) {
       return;
     }
-    dispatch(loginUser({ email: enteredEmail, password: enteredPassword }));
+    dispatch(
+      loginUser({ email: enteredEmail, password: enteredPassword })
+    );
+
     resetEmailInput();
     resetPasswordInput();
   };
 
   useEffect(() => {
-    console.log("Login Form effect ran");
     if (window.onload && window.google) {
-      console.log("render button");
       window.google.accounts.id.renderButton(
         document.getElementById("buttonDiv"),
         { theme: "outline", size: "large", text: "continue_with" } // customization attributes
       );
     }
-    if (isSuccess) {
+    if (isSuccess && !isGoogleAuth) {
       dispatch(updateState());
+      toast.success(`Welcome back, ${name}`);
       history.push("/");
     }
-    if (isError) {
-      console.log(errorMessage);
+    if (isError && !isGoogleAuth) {
       dispatch(clearState());
+      toast.error(errorMessage);
     }
-  }, [isSuccess, isError, dispatch, errorMessage, history]);
+  }, [dispatch, isError, isSuccess, name, errorMessage, history, isGoogleAuth]);
 
   return isFetching ? (
     "Logging in..."

@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import GoogleAuth from "./GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import { toast } from "react-toastify";
 import {
   userSelector,
   clearState,
@@ -13,14 +15,10 @@ import {
   signupUser,
 } from "../redux/userSlice";
 const RegisterForm = () => {
-  // function onSignIn() {
-  //   let cred = { id: "...", password: "..." };
-  //   window.google.accounts.id.storeCredential(cred);
-  // }
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { isFetching, isSuccess, isError, errorMessage } =
+  const { isGoogleAuth, name, isFetching, isSuccess, isError, errorMessage } =
     useSelector(userSelector);
 
   // username
@@ -102,16 +100,16 @@ const RegisterForm = () => {
         { theme: "outline", size: "large", text: "continue_with" } // customization attributes
       );
     }
-    if (isSuccess) {
-      console.log("SUCCESS!!!");
+    if (isSuccess && !isGoogleAuth) {
       dispatch(updateState());
+      toast.success(`Welcome to News App, ${name}`)
       history.push("/");
     }
-    if (isError) {
-      console.log(errorMessage);
+    if (isError && !isGoogleAuth) {
       dispatch(clearState());
+      toast(errorMessage);
     }
-  }, [isSuccess, isError, dispatch, errorMessage, history]);
+  }, [isSuccess, isError, dispatch, errorMessage, history, name, isGoogleAuth]);
   return isFetching ? (
     "Signing up..."
   ) : (
