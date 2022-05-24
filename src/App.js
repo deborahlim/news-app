@@ -35,7 +35,7 @@ function App() {
             <Route path="/news">
               <News />
             </Route>
-            <Route path="/my-account/:accountId">
+            <Route path="/my-account">
               <Account />
             </Route>
             <Route path="/register">

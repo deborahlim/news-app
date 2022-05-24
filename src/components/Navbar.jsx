@@ -44,7 +44,7 @@ const MyNavbar = () => {
           )}
           {isSignedIn && (
             <div>
-              <NavDropdown.Item as={NavLink} to="/my-account/deb">
+              <NavDropdown.Item as={NavLink} to="/my-account">
                 My Account
               </NavDropdown.Item>
               <NavDropdown.Divider />

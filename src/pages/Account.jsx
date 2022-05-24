@@ -1,12 +1,29 @@
-import { useParams } from "react-router-dom";
+import { Card, Button, Row, Col } from "react-bootstrap";
+
 import Header from "../components/Header";
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/userSlice";
 const Account = () => {
-  // params is an object
-  const params = useParams();
+  const { name, email } = useSelector(userSelector);
   return (
     <section>
       <Header title="My Account" />
-      <p>{params.accountId}</p>
+      <Card className="m-5 p-3">
+        <Card.Body className="text-start">
+          <Card.Title className="mb-4">Basic Info</Card.Title>
+          <Row>
+            <Col>Name: </Col>
+            <Col>{name}</Col>
+          </Row>
+          <Row>
+            <Col>Email: </Col>
+            <Col>{email}</Col>
+          </Row>
+          <Button size="sm" className="text-end mt-3">
+            Update Details
+          </Button>
+        </Card.Body>
+      </Card>
     </section>
   );
 };
