@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { decodeJwt } from "jose";
 import {
   clearState,
@@ -12,9 +13,10 @@ import { toast } from "react-toastify";
 const GoogleAuth = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { name, isSuccess, isError, errorMessage } = useSelector(userSelector);
   useEffect(() => {
-    async function handleCredentialResponse(response) { 
+    async function handleCredentialResponse(response) {
       // response.credential is the JWT token
       const responsePayload = decodeJwt(response.credential);
       console.dir(responsePayload);
@@ -28,6 +30,7 @@ const GoogleAuth = () => {
       try {
         let user = await dispatch(googleAuthUser(data)).unwrap();
         dispatch(updateState());
+        history.push("/");
         toast.success(`Welcome Back, ${user.data.user.name}`);
       } catch (err) {
         dispatch(clearState());

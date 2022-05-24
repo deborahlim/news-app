@@ -48,7 +48,7 @@ const MyNavbar = () => {
                 My Account
               </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/" onClick={onSignout}>
+              <NavDropdown.Item as={NavLink} to="/" onClick={onSignout} exact>
                 Log Out
               </NavDropdown.Item>
             </div>
