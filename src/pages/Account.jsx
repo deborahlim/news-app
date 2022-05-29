@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userSelector, getCurrUser } from "../redux/userSlice";
 const Account = () => {
   const dispatch = useDispatch();
-  const { isSuccess, isError, isFetching, name, email, errorMessage, token } =
+  const { isSuccess, isError, isFetching, name, email, errorMessage, token, role } =
     useSelector(userSelector);
 
   useEffect(() => {
@@ -29,6 +29,10 @@ const Account = () => {
           <Row>
             <Col>Email: </Col>
             <Col>{email}</Col>
+          </Row>
+          <Row>
+            <Col>Role: </Col>
+            <Col>{role}</Col>
           </Row>
           <Button size="sm" className="text-end mt-3">
             Update Details

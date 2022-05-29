@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { decodeJwt } from "jose";
 import {
-  clearState,
   googleAuthUser,
-  updateState,
   userSelector,
 } from "../redux/userSlice";
 import { toast } from "react-toastify";
@@ -29,11 +27,9 @@ const GoogleAuth = () => {
 
       try {
         let user = await dispatch(googleAuthUser(data)).unwrap();
-        dispatch(updateState());
         history.push("/");
         toast.success(`Welcome Back, ${user.data.user.name}`);
       } catch (err) {
-        dispatch(clearState());
         toast.error(errorMessage);
       }
     }

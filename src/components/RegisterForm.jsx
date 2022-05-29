@@ -10,8 +10,6 @@ import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import {
   userSelector,
-  clearState,
-  updateState,
   signupUser,
 } from "../redux/userSlice";
 const RegisterForm = () => {
@@ -101,13 +99,11 @@ const RegisterForm = () => {
       );
     }
     if (isSuccess && !isGoogleAuth) {
-      dispatch(updateState());
       toast.success(`Welcome to News App, ${name}`)
       history.push("/");
     }
     if (isError && !isGoogleAuth) {
-      dispatch(clearState());
-      toast(errorMessage);
+      toast.error(errorMessage);
     }
   }, [isSuccess, isError, dispatch, errorMessage, history, name, isGoogleAuth]);
   return isFetching ? (

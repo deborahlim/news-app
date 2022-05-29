@@ -10,8 +10,6 @@ import { useHistory} from "react-router-dom";
 
 import {
   userSelector,
-  clearState,
-  updateState,
   loginUser,
 } from "../redux/userSlice";
 
@@ -56,7 +54,6 @@ const LoginForm = () => {
     dispatch(
       loginUser({ email: enteredEmail, password: enteredPassword })
     );
-
     resetEmailInput();
     resetPasswordInput();
   };
@@ -69,12 +66,11 @@ const LoginForm = () => {
       );
     }
     if (isSuccess && !isGoogleAuth) {
-      dispatch(updateState());
-      toast.success(`Welcome back, ${name}`);
       history.push("/");
+      toast.success(`Welcome back, ${name}`);
+
     }
     if (isError && !isGoogleAuth) {
-      dispatch(clearState());
       toast.error(errorMessage);
     }
   }, [dispatch, isError, isSuccess, name, errorMessage, history, isGoogleAuth]);

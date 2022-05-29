@@ -82,6 +82,7 @@ export const userSlice = createSlice({
   initialState: {
     name: "",
     email: "",
+    role: "",
     token: null,
     isFetching: false,
     isSuccess: false,
@@ -91,12 +92,14 @@ export const userSlice = createSlice({
   },
   reducers: {
     clearState: (state) => {
-      state.isError = true;
-      state.isSuccess = false;
-      state.isFetching = false;
       state.name = null;
       state.email = null;
       state.token = null;
+      state.isFetching = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.errorMessage = null;
+      state.isGoogleAuth = false;
     },
     updateState: (state) => {
       state.isFetching = false;
@@ -123,6 +126,8 @@ export const userSlice = createSlice({
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = null;
     },
     [signupUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
@@ -138,6 +143,8 @@ export const userSlice = createSlice({
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = null;
     },
     [loginUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
@@ -154,6 +161,8 @@ export const userSlice = createSlice({
     },
     [googleAuthUser.pending]: (state) => {
       state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = null;
     },
     [googleAuthUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
@@ -168,6 +177,8 @@ export const userSlice = createSlice({
     },
     [getCurrUser.pending]: (state) => {
       state.isFetching = true;
+      state.isError = false;
+      state.errorMessage = null;
     },
     [getCurrUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
