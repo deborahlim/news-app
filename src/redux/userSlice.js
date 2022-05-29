@@ -101,12 +101,6 @@ export const userSlice = createSlice({
       state.errorMessage = null;
       state.isGoogleAuth = false;
     },
-    updateState: (state) => {
-      state.isFetching = false;
-      state.isSuccess = true;
-      state.isError = false;
-      state.errorMessage = null;
-    },
   },
 
   // to handle the promise lifycycle actions
@@ -187,5 +181,5 @@ export const userSlice = createSlice({
     },
   },
 });
-export const { clearState, updateState } = userSlice.actions;
+export const { clearState } = userSlice.actions;
 export const userSelector = (state) => state.user;
