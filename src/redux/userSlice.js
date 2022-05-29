@@ -168,6 +168,7 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.name;
       state.email = payload.data.email;
+      state.role = payload.data.role;
     },
     [getCurrUser.pending]: (state) => {
       state.isFetching = true;
