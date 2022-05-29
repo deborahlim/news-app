@@ -14,7 +14,7 @@ const GoogleAuth = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { name, isSuccess, isError, errorMessage } = useSelector(userSelector);
+  const { name, errorMessage } = useSelector(userSelector);
   useEffect(() => {
     async function handleCredentialResponse(response) {
       // response.credential is the JWT token
@@ -52,7 +52,7 @@ const GoogleAuth = () => {
         );
       }
     };
-  }, [path, dispatch, name, isSuccess, isError, errorMessage]);
+  }, [path, dispatch, name, errorMessage, history]);
 
   return null;
 };

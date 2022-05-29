@@ -1,6 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { signupUserAPI, loginUserAPI, googleAuthAPI } from "../api/users";
+import {
+  signupUserAPI,
+  loginUserAPI,
+  googleAuthAPI,
+  getCurrUserAPI,
+} from "../api/users";
 
 // createAsyncThunk accepys 3 parameters
 // 1. string action type: A string that will be used to generate additional Redux action type constants, represention the lifecycle of an async requests
@@ -47,10 +52,22 @@ export const googleAuthUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = await googleAuthAPI(data);
-      console.log(response);
+      // console.log(response);
       return response;
     } catch (err) {
       console.dir(err);
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const getCurrUser = createAsyncThunk(
+  "users/getCurrUser",
+  async (data, thunkAPI) => {
+    try {
+      let response = await getCurrUserAPI(data);
+      return response;
+    } catch (err) {
       return thunkAPI.rejectWithValue(err);
     }
   }
@@ -102,14 +119,13 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
-      state.email = payload.data.user.email;
       state.token = payload.token;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
     },
     [signupUser.rejected]: (state, { payload }) => {
-      state.isPending = false;
+      state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;
     },
@@ -118,14 +134,13 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
-      state.email = payload.data.user.email;
       state.token = payload.token;
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;
     },
     [loginUser.rejected]: (state, { payload }) => {
-      state.isPending = false;
+      state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;
     },
@@ -134,7 +149,6 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
-      state.email = payload.data.user.email;
       state.token = payload.token;
       state.isGoogleAuth = true;
     },
@@ -142,7 +156,21 @@ export const userSlice = createSlice({
       state.isFetching = true;
     },
     [googleAuthUser.rejected]: (state, { payload }) => {
-      state.isPending = false;
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [getCurrUser.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.name = payload.data.name;
+      state.email = payload.data.email;
+    },
+    [getCurrUser.pending]: (state) => {
+      state.isFetching = true;
+    },
+    [getCurrUser.rejected]: (state, { payload }) => {
+      state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;
     },

@@ -46,4 +46,18 @@ const loginUserAPI = async (data) => {
   }
 };
 
-export { loginUserAPI, signupUserAPI, googleAuthAPI };
+const getCurrUserAPI = async (data) => {
+  try {
+    const config = {
+      headers: {
+        Authorization:  `Bearer ${data}`
+      }
+    }
+    const response = await users.get("me", config);
+    return response.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
+export { loginUserAPI, signupUserAPI, googleAuthAPI, getCurrUserAPI };
