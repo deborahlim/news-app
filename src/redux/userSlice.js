@@ -5,6 +5,9 @@ import {
   loginUserAPI,
   googleAuthAPI,
   getCurrUserAPI,
+  updateCurrUserDetailsAPI,
+  updateCurrUserPasswordAPI,
+  deleteCurrUserAPI,
 } from "../api/users";
 
 // createAsyncThunk accepys 3 parameters
@@ -72,6 +75,42 @@ export const getCurrUser = createAsyncThunk(
     }
   }
 );
+
+export const updateCurrUserDetails = createAsyncThunk(
+  "users/updateCurrUserDetails",
+  async (data, thunkAPI) => {
+    try {
+      let response = await updateCurrUserDetailsAPI(data);
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const updateCurrUserPassword = createAsyncThunk(
+  "users/updateCurrUserPassword",
+  async (data, thunkAPI) => {
+    try {
+      let response = await updateCurrUserPasswordAPI(data);
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const deleteCurrUser = createAsyncThunk(
+  "users/deleteCurrUser",
+  async (data, thunkAPI) => {
+    try {
+      let response = await deleteCurrUserAPI(data);
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
 // createSlice handles the action and reducer in a single function
 // accepts an initial state, an object of reducer functions, and a slice name
 // automatically generates action creators and action types that correspond to the reducers and state
@@ -92,9 +131,10 @@ export const userSlice = createSlice({
   },
   reducers: {
     clearState: (state) => {
-      state.name = null;
-      state.email = null;
+      state.name = "";
+      state.email = "";
       state.token = null;
+      state.role = "";
       state.isFetching = false;
       state.isSuccess = false;
       state.isError = false;
@@ -121,6 +161,7 @@ export const userSlice = createSlice({
     [signupUser.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
+      state.isSuccess = false;
       state.errorMessage = null;
     },
     [signupUser.rejected]: (state, { payload }) => {
@@ -138,6 +179,7 @@ export const userSlice = createSlice({
     [loginUser.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
+      state.isSuccess = false;
       state.errorMessage = null;
     },
     [loginUser.rejected]: (state, { payload }) => {
@@ -156,6 +198,7 @@ export const userSlice = createSlice({
     [googleAuthUser.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
+      state.isSuccess = false;
       state.errorMessage = null;
     },
     [googleAuthUser.rejected]: (state, { payload }) => {
@@ -173,9 +216,61 @@ export const userSlice = createSlice({
     [getCurrUser.pending]: (state) => {
       state.isFetching = true;
       state.isError = false;
+      state.isSuccess = false;
       state.errorMessage = null;
     },
     [getCurrUser.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [updateCurrUserDetails.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.name = payload.data.user.name;
+      state.email = payload.data.user.email;
+    },
+    [updateCurrUserDetails.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.isSuccess = false;
+      state.errorMessage = null;
+    },
+    [updateCurrUserDetails.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [updateCurrUserPassword.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.name = payload.data.user.name;
+      state.token = payload.token;
+    },
+    [updateCurrUserPassword.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.isSuccess = false;
+      state.errorMessage = null;
+    },
+    [updateCurrUserPassword.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [deleteCurrUser.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.name = "";
+      state.token = null;
+    },
+    [deleteCurrUser.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.isSuccess = false;
+      state.errorMessage = null;
+    },
+    [deleteCurrUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;

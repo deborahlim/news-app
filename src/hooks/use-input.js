@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const useInput = (validateValue) => {
-  const [enteredValue, setEnteredValue] = useState("");
+const useInput = (validateValue, initialValue = "") => {
+  const [enteredValue, setEnteredValue] = useState(initialValue);
   const [isTouched, setIsTouched] = useState(false);
 
   const valueIsValid = validateValue(enteredValue);
@@ -19,6 +19,13 @@ const useInput = (validateValue) => {
     setEnteredValue("");
     setIsTouched(false);
   };
+
+  // useState(initialValue) will only use initialValue on the first render. After this on re-renders 
+  // the useState function does not change the state based on new changes to the props passed in
+  // to make changes reflected everytime initialValue changes register an on the input prop 
+  useEffect(() => {
+    setEnteredValue(initialValue);
+  }, [initialValue]);
   return {
     value: enteredValue,
     isValid: valueIsValid,

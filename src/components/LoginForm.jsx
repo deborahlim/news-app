@@ -6,17 +6,15 @@ import Classes from "./Form.module.css";
 import useInput from "../hooks/use-input";
 import GoogleAuth from "./GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import {
-  userSelector,
-  loginUser,
-} from "../redux/userSlice";
+import { userSelector, loginUser, clearState } from "../redux/userSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isSuccess, name, isFetching, isError, errorMessage, isGoogleAuth } = useSelector(userSelector);
+  const { isSuccess, name, isFetching, isError, errorMessage, isGoogleAuth } =
+    useSelector(userSelector);
   function onSignIn() {
     let cred = { id: "...", password: "..." };
     window.google.accounts.id.storeCredential(cred);
@@ -51,9 +49,9 @@ const LoginForm = () => {
     if (!formIsValid) {
       return;
     }
-    dispatch(
-      loginUser({ email: enteredEmail, password: enteredPassword })
-    );
+
+    dispatch(loginUser({ email: enteredEmail, password: enteredPassword }));
+
     resetEmailInput();
     resetPasswordInput();
   };
@@ -68,10 +66,10 @@ const LoginForm = () => {
     if (isSuccess && !isGoogleAuth) {
       history.push("/");
       toast.success(`Welcome back, ${name}`);
-
     }
     if (isError && !isGoogleAuth) {
       toast.error(errorMessage);
+      dispatch(clearState());
     }
   }, [dispatch, isError, isSuccess, name, errorMessage, history, isGoogleAuth]);
 

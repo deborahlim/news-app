@@ -8,10 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import {
-  userSelector,
-  signupUser,
-} from "../redux/userSlice";
+import { userSelector, signupUser, clearState } from "../redux/userSlice";
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -90,7 +87,6 @@ const RegisterForm = () => {
   };
 
   useEffect(() => {
-    console.log("Register Form effect ran");
     if (window.onload && window.google) {
       console.log("render button");
       window.google.accounts.id.renderButton(
@@ -99,11 +95,12 @@ const RegisterForm = () => {
       );
     }
     if (isSuccess && !isGoogleAuth) {
-      toast.success(`Welcome to News App, ${name}`)
+      toast.success(`Welcome to News App, ${name}`);
       history.push("/");
     }
     if (isError && !isGoogleAuth) {
       toast.error(errorMessage);
+      dispatch(clearState());
     }
   }, [isSuccess, isError, dispatch, errorMessage, history, name, isGoogleAuth]);
   return isFetching ? (
