@@ -14,20 +14,11 @@ import useInput from "../hooks/use-input";
 import Header from "../components/Header";
 import { toast } from "react-toastify";
 
-
 const Account = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const {
-    isSuccess,
-    isError,
-    isFetching,
-    errorMessage,
-    token,
-    name,
-    email,
-    role,
-  } = useSelector(userSelector);
+  const { isError, isFetching, errorMessage, token, name, email, role } =
+    useSelector(userSelector);
   // email
   const {
     value: enteredEmail,
@@ -53,6 +44,7 @@ const Account = () => {
     hasError: currentPasswordInputHasError,
     valueChangeHandler: currentPasswordChangedHandler,
     inputBlurHandler: currentPasswordBlurHandler,
+    reset: resetCurrentPassword,
   } = useInput((value) => value.trim().length > 5);
 
   // new password
@@ -62,6 +54,7 @@ const Account = () => {
     hasError: newPasswordInputHasError,
     valueChangeHandler: newPasswordChangedHandler,
     inputBlurHandler: newPasswordBlurHandler,
+    reset: resetNewPassword,
   } = useInput((value) => value.trim().length > 5);
 
   // confirm new password
@@ -71,6 +64,7 @@ const Account = () => {
     hasError: confirmNewPasswordInputHasError,
     valueChangeHandler: confirmNewPasswordChangedHandler,
     inputBlurHandler: confirmNewPasswordBlurHandler,
+    reset: resetConfirmNewPassword,
   } = useInput((value) => value.trim() === enteredNewPassword);
 
   let updateUserDetailsformIsValid = false;
@@ -118,6 +112,10 @@ const Account = () => {
       toast.success("Password Changed!");
     } catch (err) {
       toast.error(errorMessage);
+    } finally {
+      resetCurrentPassword();
+      resetNewPassword();
+      resetConfirmNewPassword();
     }
   };
 
@@ -147,7 +145,7 @@ const Account = () => {
   }
   if (isFetching) {
     content = "Fetching User Details...";
-  } else if (isSuccess) {
+  } else {
     content = (
       <Card className="m-5 p-3">
         <Card.Body className="text-start">
@@ -221,7 +219,7 @@ const Account = () => {
                 />
                 {currentPasswordInputHasError && (
                   <span className="text-danger">
-                    Current Password must not be empty
+                    Current Password must be longer than 5 characters
                   </span>
                 )}
               </Col>
@@ -240,7 +238,7 @@ const Account = () => {
                 />
                 {newPasswordInputHasError && (
                   <span className="text-danger">
-                    New Password must not be empty
+                    New Password must be longer than 5 characters
                   </span>
                 )}
               </Col>
@@ -261,7 +259,7 @@ const Account = () => {
                 />
                 {confirmNewPasswordInputHasError && (
                   <span className="text-danger">
-                    Confirm New Password must not be empty
+                    New Passwords do not match
                   </span>
                 )}
               </Col>
@@ -293,8 +291,6 @@ const Account = () => {
         </Card.Body>
       </Card>
     );
-  } else {
-    content = "Something went wrong. Try again later!";
   }
 
   return (
