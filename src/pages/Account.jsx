@@ -17,8 +17,16 @@ import { toast } from "react-toastify";
 const Account = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isError, isFetching, errorMessage, token, name, email, role } =
-    useSelector(userSelector);
+  const {
+    isError,
+    isFetching,
+    errorMessage,
+    token,
+    name,
+    email,
+    role,
+    isGoogleAuth,
+  } = useSelector(userSelector);
   // email
   const {
     value: enteredEmail,
@@ -151,9 +159,9 @@ const Account = () => {
         <Card.Body className="text-start">
           <Form onSubmit={updateDetailsFormHandler} className="my-3">
             <Card.Title className="mb-4">Basic Info</Card.Title>
-            <Row className="my-2">
+            <Row className="my-4">
               <Col>
-                <Form.Label className="fw-bold">Username</Form.Label>
+                <Form.Label>Username</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -162,17 +170,18 @@ const Account = () => {
                   value={enteredUsername}
                   onChange={usernameChangedHandler}
                   onBlur={usernameBlurHandler}
+                  className="form-control-sm"
                 />
                 {usernameInputHasError && (
-                  <span className="text-danger">
+                  <span className="text-danger small">
                     Username must not be empty
                   </span>
                 )}
               </Col>
             </Row>
-            <Row className="my-2">
+            <Row className="my-4">
               <Col>
-                <Form.Label className="fw-bold">Email</Form.Label>
+                <Form.Label>Email</Form.Label>
               </Col>
               <Col>
                 <Form.Control
@@ -181,17 +190,33 @@ const Account = () => {
                   value={enteredEmail}
                   onChange={emailChangedHandler}
                   onBlur={emailBlurHandler}
+                  disabled={isGoogleAuth}
+                  className="form-control-sm"
                 />
+                {isGoogleAuth && (
+                  <span className="small">
+                    Unlink from your Google Account to update your email
+                  </span>
+                )}
                 {emailInputHasError && (
-                  <span className="text-danger">
+                  <span className="text-danger small">
                     Please enter a valid email
                   </span>
                 )}
               </Col>
             </Row>
-            <Row>
-              <Col className="fw-bold">Role </Col>
-              <Col>{role}</Col>
+            <Row className="my-4">
+              <Col>
+                <Form.Label> Role </Form.Label>
+              </Col>
+              <Col>
+                <Form.Control
+                  type="text"
+                  value={role}
+                  disabled
+                  className="form-control-sm"
+                />
+              </Col>
             </Row>
             <Button
               size="sm"
@@ -203,76 +228,84 @@ const Account = () => {
             </Button>
           </Form>
           <hr />
-          <Form className="mt-5 mb-3" onSubmit={updatePasswordFormHandler}>
-            <Card.Title className="mb-4">Password Change</Card.Title>
-            <Row className="my-2">
-              <Col>
-                <Form.Label className="fw-bold">Current Password</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Current Password"
-                  value={enteredCurrentPassword}
-                  onChange={currentPasswordChangedHandler}
-                  onBlur={currentPasswordBlurHandler}
-                />
-                {currentPasswordInputHasError && (
-                  <span className="text-danger">
-                    Current Password must be longer than 5 characters
-                  </span>
-                )}
-              </Col>
-            </Row>
-            <Row className="my-2">
-              <Col>
-                <Form.Label className="fw-bold">New Password</Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter New Password"
-                  value={enteredNewPassword}
-                  onChange={newPasswordChangedHandler}
-                  onBlur={newPasswordBlurHandler}
-                />
-                {newPasswordInputHasError && (
-                  <span className="text-danger">
-                    New Password must be longer than 5 characters
-                  </span>
-                )}
-              </Col>
-            </Row>
-            <Row className="my-2">
-              <Col>
-                <Form.Label className="fw-bold">
-                  Confirm New Password
-                </Form.Label>
-              </Col>
-              <Col>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Current Password"
-                  value={enteredConfirmNewPassword}
-                  onChange={confirmNewPasswordChangedHandler}
-                  onBlur={confirmNewPasswordBlurHandler}
-                />
-                {confirmNewPasswordInputHasError && (
-                  <span className="text-danger">
-                    New Passwords do not match
-                  </span>
-                )}
-              </Col>
-            </Row>
-            <Button
-              size="sm"
-              className="text-end my-3"
-              type="submit"
-              disabled={!updateUserPasswordFormIsValid}
-            >
-              Update Password
-            </Button>
-          </Form>
+          <fieldset disabled={isGoogleAuth}>
+            {isGoogleAuth && (
+              <p className="lead">Unlink from your Google Account to update your password</p >
+            )}
+            <Form className="mt-5 mb-3" onSubmit={updatePasswordFormHandler}>
+              <Card.Title className="mb-4">Password Change</Card.Title>
+              <Row className="my-4">
+                <Col>
+                  <Form.Label>Current Password</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter Current Password"
+                    value={enteredCurrentPassword}
+                    onChange={currentPasswordChangedHandler}
+                    onBlur={currentPasswordBlurHandler}
+                    className="form-control-sm"
+                  />
+                  {currentPasswordInputHasError && (
+                    <span className="text-danger small">
+                      Current Password must be longer than 5 characters
+                    </span>
+                  )}
+                </Col>
+              </Row>
+              <Row className="my-4">
+                <Col>
+                  <Form.Label>New Password</Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter New Password"
+                    value={enteredNewPassword}
+                    onChange={newPasswordChangedHandler}
+                    onBlur={newPasswordBlurHandler}
+                    className="form-control-sm"
+                  />
+                  {newPasswordInputHasError && (
+                    <span className="text-danger small">
+                      New Password must be longer than 5 characters
+                    </span>
+                  )}
+                </Col>
+              </Row>
+              <Row className="my-4">
+                <Col>
+                  <Form.Label>
+                    Confirm New Password
+                  </Form.Label>
+                </Col>
+                <Col>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter Current Password"
+                    value={enteredConfirmNewPassword}
+                    onChange={confirmNewPasswordChangedHandler}
+                    onBlur={confirmNewPasswordBlurHandler}
+                    className="form-control-sm"
+                  />
+                  {confirmNewPasswordInputHasError && (
+                    <span className="text-danger small">
+                      New Passwords do not match
+                    </span>
+                  )}
+                </Col>
+              </Row>
+              <Button
+                size="sm"
+                className="text-end my-3"
+                type="submit"
+                disabled={!updateUserPasswordFormIsValid}
+              >
+                Update Password
+              </Button>
+            </Form>
+          </fieldset>
           <hr />
           <Form className="my-3" onSubmit={deleteAccountFormHandler}>
             <Row>
