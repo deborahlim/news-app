@@ -200,11 +200,13 @@ export const userSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.errorMessage = null;
+      state.isGoogleAuth = true;
     },
     [googleAuthUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;
+      state.isGoogleAuth = true;
     },
     [getCurrUser.fulfilled]: (state, { payload }) => {
       state.isFetching = false;

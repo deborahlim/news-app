@@ -3,16 +3,13 @@ import { useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { decodeJwt } from "jose";
-import {
-  googleAuthUser,
-  userSelector,
-} from "../redux/userSlice";
+import { googleAuthUser, userSelector, clearState } from "../redux/userSlice";
 import { toast } from "react-toastify";
 const GoogleAuth = () => {
   const { path } = useRouteMatch();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { name, errorMessage } = useSelector(userSelector);
+  const { name, errorMessage, isSuccess, isError } = useSelector(userSelector);
   useEffect(() => {
     async function handleCredentialResponse(response) {
       // response.credential is the JWT token
@@ -24,13 +21,16 @@ const GoogleAuth = () => {
         password: responsePayload.sub,
         passwordConfirm: responsePayload.sub,
       };
-
       try {
         let user = await dispatch(googleAuthUser(data)).unwrap();
         history.push("/");
         toast.success(`Welcome Back, ${user.data.user.name}`);
       } catch (err) {
-        toast.error(errorMessage);
+        toast.error("Linking with your Google account failed. Please use a different email to create an account.");
+        history.push("/register");
+      }
+      finally {
+        dispatch(clearState());
       }
     }
 
@@ -48,7 +48,7 @@ const GoogleAuth = () => {
         );
       }
     };
-  }, [path, dispatch, name, errorMessage, history]);
+  }, [path, dispatch, name, errorMessage, history, isError, isSuccess]);
 
   return null;
 };

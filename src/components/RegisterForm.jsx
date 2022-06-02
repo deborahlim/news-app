@@ -107,7 +107,6 @@ const RegisterForm = () => {
     <Spinner size="lg" animation="grow" />
   ) : (
     <div>
-      {isError && <span className="text-danger">{errorMessage}</span>}
       <Form className={Classes.form} onSubmit={submissionFormHandler}>
         <Form.Group className="mb-3" controlId="formGroupUsername">
           <Form.Label>Username</Form.Label>
