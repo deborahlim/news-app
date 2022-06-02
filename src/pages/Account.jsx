@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Card, Button, Row, Col, Form, Spinner } from "react-bootstrap";
+import MyModal from "../components/MyModal";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -127,17 +128,17 @@ const Account = () => {
     }
   };
 
-  const deleteAccountFormHandler = (event) => {
+  const deleteAccountFormHandler = async (event) => {
     event.preventDefault();
     try {
       dispatch(deleteCurrUser(token));
       history.push("/");
-      dispatch(clearState());
       toast.success("You have been logged out");
     } catch (err) {
       toast.error(errorMessage);
-      dispatch(clearState());
       history.push("/");
+    } finally {
+      dispatch(clearState());
     }
   };
 
@@ -315,9 +316,11 @@ const Account = () => {
                   You will lose access to your account once your deletion
                   request has been submitted.
                 </p>
-                <Button variant="danger" size="sm" type="submit">
-                  Delete Account
-                </Button>
+                <MyModal
+                  header="Confirm Delete?"
+                  message="Once this request has been submitted, you will not be able to create an account using this email address again."
+                  handleSubmit={deleteAccountFormHandler}
+                />
               </Col>
             </Row>
           </Form>
