@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import Row from "react-bootstrap/Row";
+import { Row, Spinner } from "react-bootstrap";
 
 import NewsCard from "./NewsCard";
 import useArticles from "../hooks/use-articles";
@@ -28,7 +28,7 @@ const NewsCardGrid = () => {
 
   let content;
   if (isLoading) {
-    content = "Loading...";
+    content = <Spinner size="lg" animation="grow" />;
   } else if (articles.length > 0) {
     console.log(articles);
     content = articles.map((article) => {

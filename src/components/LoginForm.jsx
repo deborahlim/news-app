@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
 import Classes from "./Form.module.css";
 import useInput from "../hooks/use-input";
@@ -74,7 +74,7 @@ const LoginForm = () => {
   }, [dispatch, isError, isSuccess, name, errorMessage, history, isGoogleAuth]);
 
   return isFetching ? (
-    "Logging in..."
+    <Spinner size="lg" animation="grow" />
   ) : (
     <div>
       {isError && <span className="text-danger">{errorMessage}</span>}

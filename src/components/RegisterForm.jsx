@@ -1,5 +1,5 @@
 import Classes from "./Form.module.css";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Spinner } from "react-bootstrap";
 import useInput from "../hooks/use-input";
 
 import { useEffect } from "react";
@@ -104,7 +104,7 @@ const RegisterForm = () => {
     }
   }, [isSuccess, isError, dispatch, errorMessage, history, name, isGoogleAuth]);
   return isFetching ? (
-    "Signing up..."
+    <Spinner size="lg" animation="grow" />
   ) : (
     <div>
       {isError && <span className="text-danger">{errorMessage}</span>}

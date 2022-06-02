@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Card, Button, Row, Col, Form } from "react-bootstrap";
+import { Card, Button, Row, Col, Form, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -152,7 +152,7 @@ const Account = () => {
     history.push("/");
   }
   if (isFetching) {
-    content = "Fetching User Details...";
+    content = <Spinner size="lg" animation="grow" />;
   } else {
     content = (
       <Card className="m-5 p-3">
@@ -230,7 +230,9 @@ const Account = () => {
           <hr />
           <fieldset disabled={isGoogleAuth}>
             {isGoogleAuth && (
-              <p className="lead">Unlink from your Google Account to update your password</p >
+              <p className="lead">
+                Unlink from your Google Account to update your password
+              </p>
             )}
             <Form className="mt-5 mb-3" onSubmit={updatePasswordFormHandler}>
               <Card.Title className="mb-4">Password Change</Card.Title>
@@ -276,9 +278,7 @@ const Account = () => {
               </Row>
               <Row className="my-4">
                 <Col>
-                  <Form.Label>
-                    Confirm New Password
-                  </Form.Label>
+                  <Form.Label>Confirm New Password</Form.Label>
                 </Col>
                 <Col>
                   <Form.Control
