@@ -1,0 +1,9 @@
+.search-box {
+  width: 60%;
+}
+
+@media screen and (max-width: 480px) {
+  .search-box {
+    width: 100%;
+  }
+}

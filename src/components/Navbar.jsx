@@ -1,6 +1,4 @@
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
 import SearchForm from "./SearchForm";
 // import link component,
 // which renders anchor tags and react router
@@ -19,41 +17,67 @@ const MyNavbar = () => {
     window.google.accounts.id.disableAutoSelect();
     dispatch(clearState());
     history.push("/");
-    toast.success("You have been logged out!")
+    toast.success("You have been logged out!");
   };
 
   const isSignedIn = useSelector((state) => {
     return state.user.token !== null;
   });
 
+  const toggleButtonHandler = (event) => {
+    event.preventDefault();
+    event.target.blur();
+    event.target.parentNode.blur();
+  };
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
-        <Navbar.Brand href="#home">News App</Navbar.Brand>
-        <SearchForm />
-        <NavDropdown title="Account" id="basic-nav-dropdown" align="end">
-          {isSignedIn || (
-            <div>
-              <NavDropdown.Item as={NavLink} to="/register">
-                Register
-              </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/login">
-                Log In
-              </NavDropdown.Item>
-            </div>
-          )}
-          {isSignedIn && (
-            <div>
-              <NavDropdown.Item as={NavLink} to="/my-account">
-                My Account
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={NavLink} to="/" onClick={onSignout} exact>
-                Log Out
-              </NavDropdown.Item>
-            </div>
-          )}
-        </NavDropdown>
+        <Navbar.Brand as={NavLink} to="/top-headlines/breaking-news">
+          GNews
+        </Navbar.Brand>
+        <Navbar.Toggle
+          aria-controls="basic-navbar-nav"
+          onClick={toggleButtonHandler}
+        />
+        <Navbar.Collapse id="basic-navbar-nav" className="my-sm-4 my-md-0">
+          <div className="my-3">
+          <SearchForm/>
+          </div>
+
+          <div className="d-md-flex flex-row">
+            <Nav.Link as={NavLink} to="/top-headlines/breaking-news">
+              Home
+            </Nav.Link>
+            <NavDropdown title="Account" id="basic-nav-dropdown" align="end">
+              {isSignedIn || (
+                <div>
+                  <NavDropdown.Item as={NavLink} to="/register">
+                    Register
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink} to="/login">
+                    Log In
+                  </NavDropdown.Item>
+                </div>
+              )}
+              {isSignedIn && (
+                <div>
+                  <NavDropdown.Item as={NavLink} to="/my-account">
+                    My Account
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    as={NavLink}
+                    to="/"
+                    onClick={onSignout}
+                    exact
+                  >
+                    Log Out
+                  </NavDropdown.Item>
+                </div>
+              )}
+            </NavDropdown>
+          </div>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
