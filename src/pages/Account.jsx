@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Card, Button, Row, Col, Form, Spinner } from "react-bootstrap";
 import MyModal from "../components/MyModal";
+import { languages, countries } from "../util/options";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -25,6 +26,8 @@ const Account = () => {
     token,
     name,
     email,
+    country,
+    lang,
     role,
     isGoogleAuth,
   } = useSelector(userSelector);
@@ -75,6 +78,25 @@ const Account = () => {
     inputBlurHandler: confirmNewPasswordBlurHandler,
     reset: resetConfirmNewPassword,
   } = useInput((value) => value.trim() === enteredNewPassword);
+
+  // countries
+ const {
+   value: enteredCountry,
+   valueChangeHandler: enteredCountryChangedHandler,
+ } = useInput((value) => countries[value], country);
+  const countriesOptions = [];
+  for (const cty in countries) {
+    countriesOptions.push(<option value={countries[cty]} key={cty}>{cty}</option>);
+  }
+  // language
+  const {
+    value: enteredLanguage,
+    valueChangeHandler: enteredLanguageChangedHandler,
+  } = useInput((value) => countries[value], lang);
+  const languageOptions = [];
+  for (const language in languages) {
+    languageOptions.push(<option value={languages[language]} key={language}>{language}</option>);
+  }
 
   let updateUserDetailsformIsValid = false;
   let updateUserPasswordFormIsValid = false;
@@ -140,6 +162,12 @@ const Account = () => {
     } finally {
       dispatch(clearState());
     }
+  };
+
+  const updateNewsFeedSettingsHandler = async (event) => {
+    event.preventDefault();
+    try {
+    } catch {}
   };
 
   useEffect(() => {
@@ -221,12 +249,35 @@ const Account = () => {
             </Row>
             <Button
               size="sm"
-              className="text-end my-3"
+              className="my-3"
               type="submit"
               disabled={!updateUserDetailsformIsValid}
             >
               Save Changes
             </Button>
+          </Form>
+          <hr />
+          <Form className="mt-5 mb-3" onSubmit={updateNewsFeedSettingsHandler}>
+            <Card.Title className="mb-4">News Feed Settings</Card.Title>
+            <Row className="my-4">
+              <Col>
+                <Form.Label>Country</Form.Label>
+              </Col>
+              <Col>
+                <Form.Select size="sm" value={enteredCountry} onChange={enteredCountryChangedHandler}>{countriesOptions}</Form.Select>
+              </Col>
+            </Row>
+            <Row className="my-4">
+              <Col>
+                <Form.Label>Language</Form.Label>
+              </Col>
+              <Col>
+                <Form.Select size="sm" value={enteredLanguage} onChange={enteredLanguageChangedHandler}>
+                  {languageOptions}
+                </Form.Select>
+              </Col>
+            </Row>
+            <Button size="sm" className="my-3">Save Changes</Button>
           </Form>
           <hr />
           <fieldset disabled={isGoogleAuth}>
@@ -299,7 +350,7 @@ const Account = () => {
               </Row>
               <Button
                 size="sm"
-                className="text-end my-3"
+                className="my-3"
                 type="submit"
                 disabled={!updateUserPasswordFormIsValid}
               >

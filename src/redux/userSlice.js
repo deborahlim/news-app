@@ -122,6 +122,8 @@ export const userSlice = createSlice({
     name: "",
     email: "",
     role: "",
+    country: "",
+    lang: "",
     token: null,
     isFetching: false,
     isSuccess: false,
@@ -133,6 +135,8 @@ export const userSlice = createSlice({
     clearState: (state) => {
       state.name = "";
       state.email = "";
+      state.country = "";
+      state.lang = "";
       state.token = null;
       state.role = "";
       state.isFetching = false;
@@ -213,6 +217,8 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.name;
       state.email = payload.data.email;
+      state.country = payload.data.country;
+      state.lang = payload.data.language;
       state.role = payload.data.role;
     },
     [getCurrUser.pending]: (state) => {
