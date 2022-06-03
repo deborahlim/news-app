@@ -23,7 +23,7 @@ const googleAuthAPI = async (data) => {
         throw err.response.data.message;
       }
     } else {
-      throw err;
+      throw err.message;
     }
   }
 };

@@ -26,10 +26,15 @@ const GoogleAuth = () => {
         history.push("/");
         toast.success(`Welcome Back, ${user.data.user.name}`);
       } catch (err) {
-        toast.error("Linking with your Google account failed. Please use a different email to create an account.");
+        let errorMessage = err;
+        console.log(errorMessage);
+        if (err === "Incorrect email or password") {
+          errorMessage =
+            "Linking with your Google account failed. Please use a different email to create an account.";
+        }
         history.push("/register");
-      }
-      finally {
+        toast.error(errorMessage);
+      } finally {
         dispatch(clearState());
       }
     }
