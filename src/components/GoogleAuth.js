@@ -34,9 +34,8 @@ const GoogleAuth = () => {
         }
         history.push("/register");
         toast.error(errorMessage);
-      } finally {
         dispatch(clearState());
-      }
+      } 
     }
 
     window.onload = function () {
