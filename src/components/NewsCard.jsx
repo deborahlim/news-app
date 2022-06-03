@@ -3,11 +3,14 @@ import "./NewsCard.css";
 import Col from "react-bootstrap/Col";
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
-console.log(url)
+  console.log(url);
   const truncateDescription = (description) => {
     let reDot = /[.]/g;
     let indexOfDot = description.search(reDot);
-    return description.slice(0, indexOfDot + 1);
+    let upToFullStop = description.slice(0, indexOfDot + 1);
+    return upToFullStop.length > 144
+      ? upToFullStop.slice(0, 145) + "..."
+      : upToFullStop;
   };
   function msToTime(ms) {
     let seconds = (ms / 1000).toFixed();
@@ -26,11 +29,7 @@ console.log(url)
 
   return (
     <Col className="g-4">
-      <Card.Link
-        href={url}
-        target="_blank"
-        className="news-card"
-      >
+      <Card.Link href={url} target="_blank" className="news-card">
         <Card className="news-card">
           <Card.Img variant="top" src={image} className="news-card-img" />
           <Card.Body>
