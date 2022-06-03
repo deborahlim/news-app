@@ -39,8 +39,8 @@ const MyNavbar = () => {
           aria-controls="basic-navbar-nav"
           onClick={toggleButtonHandler}
         />
-        <Navbar.Collapse id="basic-navbar-nav" className="my-sm-4 my-md-0">
-          <div className="my-3">
+        <Navbar.Collapse id="basic-navbar-nav" className="my-4 my-md-0">
+          <div className="my-3 my-md-0 mx-auto search-box">
           <SearchForm/>
           </div>
 

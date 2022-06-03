@@ -20,7 +20,7 @@ const SearchForm = () => {
           placeholder="Search keywords, topics and more..."
           value={term}
           onChange={(event) => setTerm(event.target.value)}
-          className="me-2 form-control px-3"
+          className="me-2 px-3 "
           aria-label="Search"
         />
         <Button variant="outline-success" type="submit">
