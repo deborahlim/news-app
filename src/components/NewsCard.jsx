@@ -3,7 +3,6 @@ import "./NewsCard.css";
 import Col from "react-bootstrap/Col";
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
-  console.log(url);
   const truncateDescription = (description) => {
     let reDot = /[.]/g;
     let indexOfDot = description.search(reDot);

@@ -30,10 +30,10 @@ const NewsCardGrid = () => {
   if (isLoading) {
     content = <Spinner size="lg" animation="grow" />;
   } else if (articles.length > 0) {
-    console.log(articles);
     content = articles.map((article) => {
       return <NewsCard article={article} key={article.publishedAt} />;
     });
+    console.log(content)
   } else if (error) {
     content = error;
   } else {
