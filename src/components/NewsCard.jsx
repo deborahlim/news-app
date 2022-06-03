@@ -17,7 +17,7 @@ console.log(url)
     if (seconds < 60) return seconds + " Sec";
     else if (minutes < 60) return minutes + " Min";
     else if (hours < 24) return hours + " Hrs";
-    else return days + " Days";
+    else return days > 1 ? days + " Days" : days + " Day";
   }
   const timeElaspedSinceCurr = (str) => {
     const timeElasped = msToTime(Date.now() - new Date(str).getTime());
