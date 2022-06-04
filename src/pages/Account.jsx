@@ -93,7 +93,7 @@ const Account = () => {
       </option>
     );
   }
-  console.log(enteredCountry)
+  console.log(enteredCountry);
   // language
   const {
     value: enteredLanguage,
@@ -191,8 +191,12 @@ const Account = () => {
   };
 
   useEffect(() => {
-    dispatch(getCurrUser(token));
-  }, [dispatch, token]);
+    if (token) {
+      dispatch(getCurrUser(token));
+    } else {
+      history.push("/");
+    }
+  }, [history, dispatch, token]);
 
   let content;
   if (isError) {
