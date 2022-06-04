@@ -175,6 +175,8 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.token = payload.token;
+      state.country = payload.country;
+      state.lang = payload.language;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
@@ -193,6 +195,8 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.token = payload.token;
+      state.country = payload.country;
+      state.lang = payload.language;
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;
@@ -206,11 +210,12 @@ export const userSlice = createSlice({
       state.errorMessage = payload;
     },
     [googleAuthUser.fulfilled]: (state, { payload }) => {
-      console.dir(payload);
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.token = payload.token;
+      state.country = payload.data.user.country;
+      state.lang = payload.data.user.language;
       state.isGoogleAuth = true;
     },
     [googleAuthUser.pending]: (state) => {
