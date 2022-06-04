@@ -11,6 +11,7 @@ import {
   updateCurrUserPassword,
   deleteCurrUser,
   clearState,
+  updateCurrUserNewsSettings,
 } from "../redux/userSlice";
 import useInput from "../hooks/use-input";
 import Header from "../components/Header";
@@ -80,14 +81,19 @@ const Account = () => {
   } = useInput((value) => value.trim() === enteredNewPassword);
 
   // countries
- const {
-   value: enteredCountry,
-   valueChangeHandler: enteredCountryChangedHandler,
- } = useInput((value) => countries[value], country);
+  const {
+    value: enteredCountry,
+    valueChangeHandler: enteredCountryChangedHandler,
+  } = useInput((value) => countries[value], country);
   const countriesOptions = [];
   for (const cty in countries) {
-    countriesOptions.push(<option value={countries[cty]} key={cty}>{cty}</option>);
+    countriesOptions.push(
+      <option value={countries[cty]} key={cty}>
+        {cty}
+      </option>
+    );
   }
+  console.log(enteredCountry)
   // language
   const {
     value: enteredLanguage,
@@ -95,7 +101,11 @@ const Account = () => {
   } = useInput((value) => countries[value], lang);
   const languageOptions = [];
   for (const language in languages) {
-    languageOptions.push(<option value={languages[language]} key={language}>{language}</option>);
+    languageOptions.push(
+      <option value={languages[language]} key={language}>
+        {language}
+      </option>
+    );
   }
 
   let updateUserDetailsformIsValid = false;
@@ -122,6 +132,22 @@ const Account = () => {
     };
     try {
       dispatch(updateCurrUserDetails(enteredData));
+      toast.success("Changes Saved!");
+    } catch (err) {
+      toast.error(errorMessage);
+    }
+  };
+
+  const updateNewsFeedSettingsHandler = async (event) => {
+    event.preventDefault();
+
+    let enteredData = {
+      country: enteredCountry,
+      language: enteredLanguage,
+      token: token,
+    };
+    try {
+      dispatch(updateCurrUserNewsSettings(enteredData));
       toast.success("Changes Saved!");
     } catch (err) {
       toast.error(errorMessage);
@@ -162,12 +188,6 @@ const Account = () => {
     } finally {
       dispatch(clearState());
     }
-  };
-
-  const updateNewsFeedSettingsHandler = async (event) => {
-    event.preventDefault();
-    try {
-    } catch {}
   };
 
   useEffect(() => {
@@ -264,7 +284,13 @@ const Account = () => {
                 <Form.Label>Country</Form.Label>
               </Col>
               <Col>
-                <Form.Select size="sm" value={enteredCountry} onChange={enteredCountryChangedHandler}>{countriesOptions}</Form.Select>
+                <Form.Select
+                  size="sm"
+                  value={enteredCountry}
+                  onChange={enteredCountryChangedHandler}
+                >
+                  {countriesOptions}
+                </Form.Select>
               </Col>
             </Row>
             <Row className="my-4">
@@ -272,12 +298,18 @@ const Account = () => {
                 <Form.Label>Language</Form.Label>
               </Col>
               <Col>
-                <Form.Select size="sm" value={enteredLanguage} onChange={enteredLanguageChangedHandler}>
+                <Form.Select
+                  size="sm"
+                  value={enteredLanguage}
+                  onChange={enteredLanguageChangedHandler}
+                >
                   {languageOptions}
                 </Form.Select>
               </Col>
             </Row>
-            <Button size="sm" className="my-3">Save Changes</Button>
+            <Button size="sm" className="my-3" type="submit">
+              Save Changes
+            </Button>
           </Form>
           <hr />
           <fieldset disabled={isGoogleAuth}>

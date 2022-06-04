@@ -2,18 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { Row, Spinner } from "react-bootstrap";
-
+import { useSelector } from "react-redux";
+import { userSelector } from "../redux/userSlice";
 import NewsCard from "./NewsCard";
 import useArticles from "../hooks/use-articles";
 import Header from "../components/Header";
 
 const NewsCardGrid = () => {
+  const { lang, country } = useSelector(userSelector);
   const { endpoint, topic } = useParams();
   const [parameters, setParameters] = useState({
     endpoint: endpoint,
     topic: "",
-    lang: "en",
-    country: "sg",
+    lang: lang,
+    country: country,
     q: "",
   });
 
@@ -33,7 +35,7 @@ const NewsCardGrid = () => {
     content = articles.map((article) => {
       return <NewsCard article={article} key={article.publishedAt} />;
     });
-    console.log(content)
+    console.log(content);
   } else if (error) {
     content = error;
   } else {

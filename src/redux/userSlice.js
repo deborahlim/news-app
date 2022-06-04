@@ -6,6 +6,7 @@ import {
   googleAuthAPI,
   getCurrUserAPI,
   updateCurrUserDetailsAPI,
+  updateCurrUserNewsSettingsAPI,
   updateCurrUserPasswordAPI,
   deleteCurrUserAPI,
 } from "../api/users";
@@ -81,6 +82,19 @@ export const updateCurrUserDetails = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = await updateCurrUserDetailsAPI(data);
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
+export const updateCurrUserNewsSettings = createAsyncThunk(
+  "users/updateCurrUserNewsSettings",
+  async (data, thunkAPI) => {
+    console.log(data);
+    try {
+      let response = await updateCurrUserNewsSettingsAPI(data);
       return response;
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -245,6 +259,23 @@ export const userSlice = createSlice({
       state.errorMessage = null;
     },
     [updateCurrUserDetails.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [updateCurrUserNewsSettings.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.country = payload.data.user.country;
+      state.lang = payload.data.user.language;
+    },
+    [updateCurrUserNewsSettings.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.isSuccess = false;
+      state.errorMessage = null;
+    },
+    [updateCurrUserNewsSettings.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;

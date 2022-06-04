@@ -80,6 +80,27 @@ const updateCurrUserDetailsAPI = async (data) => {
   }
 };
 
+const updateCurrUserNewsSettingsAPI = async (data) => {
+  try {
+    let response = await users.patch(
+      "updateMe",
+      {
+        country: data.country,
+        language: data.langange,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
 const updateCurrUserPasswordAPI = async ({passwordCurrent, password, passwordConfirm, token}) => {
   try {
     let response = await users.patch(
@@ -121,5 +142,6 @@ export {
   getCurrUserAPI,
   updateCurrUserDetailsAPI,
   updateCurrUserPasswordAPI,
+  updateCurrUserNewsSettingsAPI,
   deleteCurrUserAPI
 };
