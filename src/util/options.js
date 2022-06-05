@@ -61,10 +61,11 @@ const topics = [
   "world",
   "nation",
   "business",
-  "technology",
+  "tech",
   "entertainment",
   "sports",
-  "science and health",
+  "science",
+  "health",
 ];
 
 export { languages, countries, topics };

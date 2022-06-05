@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
-
+import {NavLink} from "react-router-dom";
 import Container  from "react-bootstrap/Container";
 
 const SideBarNav = ({ name}) => {
@@ -18,14 +18,14 @@ const SideBarNav = ({ name}) => {
 
       <Offcanvas show={show} onHide={handleClose}>
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>News App</Offcanvas.Title>
+          <Offcanvas.Title>GNews</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
 
       <Container>
           <Nav className="flex-column">
-            <Nav.Link>Saved Topics</Nav.Link>
-            <Nav.Link>Latest</Nav.Link>
+            <Nav.Link as={NavLink} to={`/user/saved-topics`}>Saved Topics</Nav.Link>
+            <Nav.Link>Videos</Nav.Link>
           </Nav>
           
           </Container>

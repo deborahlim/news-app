@@ -5,8 +5,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import News from "./pages/News";
@@ -14,13 +14,14 @@ import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import GoogleAuth from "./components/GoogleAuth";
+import SavedTopics from "./components/SavedTopics";
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <ToastContainer autoClose={2000}/>
-        <GoogleAuth/>
+        <ToastContainer autoClose={2000} />
+        <GoogleAuth />
         <Navbar />
         {/* Registering routes with react router:  
       react router evaluates the URL and renders the correct components based on that URL. 
@@ -43,6 +44,9 @@ function App() {
             </Route>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/user/saved-topics">
+              <SavedTopics />
             </Route>
             <Route path="/">
               <Redirect to="/news" />

@@ -101,6 +101,27 @@ const updateCurrUserNewsSettingsAPI = async (data) => {
   }
 };
 
+const updateCurrUserSavedTopicsAPI = async (data) => {
+  console.log(data.savedTopics);
+  try {
+    let response = await users.patch(
+      "updateMe",
+      {
+        savedTopics: data.savedTopics
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${data.token}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (err) {
+    throw err.response.data.message;
+  }
+};
+
 const updateCurrUserPasswordAPI = async ({passwordCurrent, password, passwordConfirm, token}) => {
   try {
     let response = await users.patch(
@@ -143,5 +164,6 @@ export {
   updateCurrUserDetailsAPI,
   updateCurrUserPasswordAPI,
   updateCurrUserNewsSettingsAPI,
-  deleteCurrUserAPI
+  deleteCurrUserAPI,
+  updateCurrUserSavedTopicsAPI
 };

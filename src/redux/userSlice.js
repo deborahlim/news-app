@@ -7,6 +7,7 @@ import {
   getCurrUserAPI,
   updateCurrUserDetailsAPI,
   updateCurrUserNewsSettingsAPI,
+  updateCurrUserSavedTopicsAPI,
   updateCurrUserPasswordAPI,
   deleteCurrUserAPI,
 } from "../api/users";
@@ -102,6 +103,19 @@ export const updateCurrUserNewsSettings = createAsyncThunk(
   }
 );
 
+export const updateCurrUserSavedTopics = createAsyncThunk(
+  "users/updateCurrUserSavedTopics",
+  async (data, thunkAPI) => {
+    console.log(data);
+    try {
+      let response = await updateCurrUserSavedTopicsAPI(data);
+      return response;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
+    }
+  }
+);
+
 export const updateCurrUserPassword = createAsyncThunk(
   "users/updateCurrUserPassword",
   async (data, thunkAPI) => {
@@ -144,6 +158,7 @@ export const userSlice = createSlice({
     isError: false,
     errorMessage: null,
     isGoogleAuth: false,
+    savedTopics: [],
   },
   reducers: {
     clearState: (state) => {
@@ -158,6 +173,7 @@ export const userSlice = createSlice({
       state.isError = false;
       state.errorMessage = null;
       state.isGoogleAuth = false;
+      state.savedTopics = [];
     },
   },
 
@@ -177,6 +193,7 @@ export const userSlice = createSlice({
       state.token = payload.token;
       state.country = payload.country;
       state.lang = payload.language;
+      state.savedTopics = payload.savedTopics;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
@@ -197,6 +214,7 @@ export const userSlice = createSlice({
       state.token = payload.token;
       state.country = payload.country;
       state.lang = payload.language;
+      state.savedTopics = payload.savedTopics;
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;
@@ -217,6 +235,7 @@ export const userSlice = createSlice({
       state.country = payload.data.user.country;
       state.lang = payload.data.user.language;
       state.isGoogleAuth = true;
+      state.savedTopics = payload.data.user.savedTopics;
     },
     [googleAuthUser.pending]: (state) => {
       state.isFetching = true;
@@ -281,6 +300,22 @@ export const userSlice = createSlice({
       state.errorMessage = null;
     },
     [updateCurrUserNewsSettings.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload;
+    },
+    [updateCurrUserSavedTopics.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.savedTopics = payload.data.user.savedTopics;
+    },
+    [updateCurrUserSavedTopics.pending]: (state) => {
+      state.isFetching = true;
+      state.isError = false;
+      state.isSuccess = false;
+      state.errorMessage = null;
+    },
+    [updateCurrUserSavedTopics.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload;
