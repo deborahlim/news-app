@@ -24,7 +24,7 @@ const SideBarNav = ({ name}) => {
 
       <Container>
           <Nav className="flex-column">
-            <Nav.Link as={NavLink} to={`/user/saved-topics`}>Saved Topics</Nav.Link>
+            <Nav.Link as={NavLink} to={`/saved-topics`}>Saved Topics</Nav.Link>
             <Nav.Link>Videos</Nav.Link>
           </Nav>
           

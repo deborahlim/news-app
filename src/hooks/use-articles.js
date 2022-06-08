@@ -11,24 +11,21 @@ const useArticles = () => {
     if (parameters.endpoint === "search") {
       query = parameters.topic;
     }
-try {
-  setIsLoading(true);
-  let response = await news.get(`/${parameters.endpoint}`, {
-    params: {
-      topic: parameters.topic,
-      lang: parameters.lang,
-      country: parameters.country,
-      q: query,
-    },
-  });
-  setArticles(response.data.articles);
-  setIsLoading(false);
-}
-catch(error) {
-  setError(error);
-}
-
-
+    try {
+      setIsLoading(true);
+      let response = await news.get(`/${parameters.endpoint}`, {
+        params: {
+          topic: parameters.topic,
+          lang: parameters.lang,
+          country: parameters.country,
+          q: query,
+        },
+      });
+      setArticles(response.data.articles);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error);
+    }
   }, []);
 
   return [articles, fetchArticles, error, isLoading];

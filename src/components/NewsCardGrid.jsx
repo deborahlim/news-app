@@ -22,7 +22,7 @@ const NewsCardGrid = () => {
     country: country,
     q: "",
   });
-  const [articles, fetchArticles, error, isLoading] = useArticles([]);
+  const [articles, fetchArticles, error, isLoading] = useArticles();
 
   const addToSavedTopicsHandler = (event) => {
     event.preventDefault();
