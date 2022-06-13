@@ -7,8 +7,8 @@ const NewsCard = (props) => {
     let reDot = /[.]/g;
     let indexOfDot = description.search(reDot);
     let upToFullStop = description.slice(0, indexOfDot + 1);
-    return upToFullStop.length > 144
-      ? upToFullStop.slice(0, 145) + "..."
+    return upToFullStop.length > 50
+      ? upToFullStop.slice(0, 51) + "..."
       : upToFullStop;
   };
   function msToTime(ms) {
@@ -18,7 +18,8 @@ const NewsCard = (props) => {
     let days = (ms / (1000 * 60 * 60 * 24)).toFixed();
     if (seconds < 60) return seconds + " Sec";
     else if (minutes < 60) return minutes + " Min";
-    else if (hours < 24) return hours + " Hrs";
+    else if (hours < 24 && hours > 1) return hours + " Hrs";
+    else if (hours >= 1) return hours + " Hr";
     else return days > 1 ? days + " Days" : days + " Day";
   }
   const timeElaspedSinceCurr = (str) => {
