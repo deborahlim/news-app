@@ -23,12 +23,12 @@ const GoogleAuth = () => {
       };
       try {
         let response = await dispatch(googleAuthUser(data)).unwrap();
-        history.push("/");
         if (response.newUser) {
           toast.success(`Welcome, ${response.data.user.name}`);
         } else {
           toast.success(`Welcome Back, ${response.data.user.name}`);
         }
+        history.push("/");
       } catch (err) {
         let errorMessage = err;
         console.log(errorMessage);
