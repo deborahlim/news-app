@@ -57,7 +57,7 @@ export const googleAuthUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = await googleAuthAPI(data);
-      // console.log(response);
+      console.log(response);
       return response;
     } catch (err) {
       console.dir(err);

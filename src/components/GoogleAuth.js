@@ -22,20 +22,26 @@ const GoogleAuth = () => {
         passwordConfirm: responsePayload.sub,
       };
       try {
-        let user = await dispatch(googleAuthUser(data)).unwrap();
+        let response = await dispatch(googleAuthUser(data)).unwrap();
         history.push("/");
-        toast.success(`Welcome Back, ${user.data.user.name}`);
+        if (response.newUser) {
+          toast.success(`Welcome, ${response.data.user.name}`);
+        } else {
+          toast.success(`Welcome Back, ${response.data.user.name}`);
+        }
       } catch (err) {
         let errorMessage = err;
         console.log(errorMessage);
         if (err === "Incorrect email or password") {
           errorMessage =
             "Linking with your Google account failed. Please use a different email to create an account.";
+          history.push("/register");
+        } else {
+          history.push("/");
         }
-        history.push("/register");
         toast.error(errorMessage);
         dispatch(clearState());
-      } 
+      }
     }
 
     window.onload = function () {

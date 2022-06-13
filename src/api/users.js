@@ -10,7 +10,8 @@ const users = axios.create({
 const googleAuthAPI = async (data) => {
   try {
     const response = await users.post("signup", data);
-    return response.data;
+    console.log(response)
+    return {...response.data, newUser: true};
   } catch (err) {
     if (err.response?.data.error.code === 11000) {
       try {
