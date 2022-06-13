@@ -23,7 +23,7 @@ const SearchForm = () => {
           className="me-2 px-3 "
           aria-label="Search"
         />
-        <Button variant="outline-success" type="submit">
+        <Button variant="outline-dark" type="submit">
           Search
         </Button>
       </Form>

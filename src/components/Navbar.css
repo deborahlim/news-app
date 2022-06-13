@@ -1,0 +1,25 @@
+.nav-link {
+  color: black;
+  font-weight: bold;
+}
+
+.dropdown-item {
+  color: inherit;
+  font-weight: bold;
+}
+
+.dropdown-item.active {
+  color: orangered;
+}
+.dropdown-item:hover {
+  color: orangered;
+}
+
+.nav-link.active {
+  color: orangered;
+}
+
+.nav-link:hover {
+  color: orangered;
+}
+
