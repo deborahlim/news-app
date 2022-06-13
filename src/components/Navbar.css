@@ -10,7 +10,9 @@
 
 .dropdown-item.active {
   color: orangered;
+  background-color: transparent;
 }
+
 .dropdown-item:hover {
   color: orangered;
 }
