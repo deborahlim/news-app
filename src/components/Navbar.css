@@ -25,3 +25,14 @@
   color: orangered;
 }
 
+.nav-home {
+  color: black !important;
+}
+
+.nav-home:active {
+  color: orangered !important;
+}
+
+.nav-home:hover {
+  color: orangered !important;
+}

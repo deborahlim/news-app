@@ -48,8 +48,8 @@ const MyNavbar = () => {
           <div className="d-md-flex flex-row">
             <Nav.Link
               as={NavLink}
-              to="/top-headlines/breaking-news"
-              onClick={toggleButtonHandler}
+              to="/"
+              className="nav-home"
             >
               Home
             </Nav.Link>
