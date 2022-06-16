@@ -15,6 +15,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import GoogleAuth from "./components/GoogleAuth";
 import SavedTopics from "./components/SavedTopics";
+import Videos from "./pages/Videos";
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
             </Route>
             <Route path="/saved-topics">
               <SavedTopics />
+            </Route>
+            <Route path="/youtube/search">
+              <Videos />
             </Route>
             <Route path="/">
               <Redirect to="/news" />
