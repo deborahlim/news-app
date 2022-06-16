@@ -1,9 +1,8 @@
 import { Image } from "react-bootstrap";
 import { timeElaspedSinceCurr } from "../../util/formatDate";
-const VideoItem = ({ video }) => {
-  console.log(video);
+const VideoItem = ({ video, onVideoSelect }) => {
   return (
-    <div className="container m-3">
+    <div className="container m-3" onClick={() => onVideoSelect(video)}>
       <Image fluid className="" src={video.snippet.thumbnails.medium.url} />
       <div className="m-3 text-center">
         <p className="fw-bold">{video.snippet.title}</p>
