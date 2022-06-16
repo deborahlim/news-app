@@ -1,6 +1,6 @@
 import { Card, Col } from "react-bootstrap";
 import "./NewsCard.css";
-
+import { timeElaspedSinceCurr } from "../../util/formatDate";
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
   const truncateDescription = (description) => {
@@ -10,21 +10,6 @@ const NewsCard = (props) => {
     return upToFullStop.length > 50
       ? upToFullStop.slice(0, 51) + "..."
       : upToFullStop;
-  };
-  function msToTime(ms) {
-    let seconds = (ms / 1000).toFixed();
-    let minutes = (ms / (1000 * 60)).toFixed();
-    let hours = (ms / (1000 * 60 * 60)).toFixed();
-    let days = (ms / (1000 * 60 * 60 * 24)).toFixed();
-    if (seconds < 60) return seconds + " Sec";
-    else if (minutes < 60) return minutes + " Min";
-    else if (hours < 24 && hours > 1) return hours + " Hrs";
-    else if (hours >= 1) return hours + " Hr";
-    else return days > 1 ? days + " Days" : days + " Day";
-  }
-  const timeElaspedSinceCurr = (str) => {
-    const timeElasped = msToTime(Date.now() - new Date(str).getTime());
-    return timeElasped;
   };
 
   return (
@@ -37,7 +22,7 @@ const NewsCard = (props) => {
             <Card.Text>{truncateDescription(description)}</Card.Text>
           </Card.Body>
           <Card.Footer className="text-muted">
-            {timeElaspedSinceCurr(publishedAt)} ago
+            {timeElaspedSinceCurr(publishedAt)}
             <br />
             Source: {source.name}
           </Card.Footer>
