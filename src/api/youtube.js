@@ -23,7 +23,6 @@
 // 1. Load the JavaScript client library.
 import axios from "axios";
 
-const KEY = "AIzaSyBIIjsqbgbSIv12TzL_4aKJliC17NhL3fk";
 
 export default axios.create({
   baseURL: "https://www.googleapis.com/youtube/v3",
@@ -31,7 +30,7 @@ export default axios.create({
     part: "snippet",
     type: "video",
     maxResults: 5,
-    key: KEY,
+    key: process.env.REACT_APP_YOUTUBE_DATA_API_KEY,
   },
 });
 
