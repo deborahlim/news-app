@@ -3,10 +3,10 @@ import { timeElaspedSinceCurr } from "../../util/formatDate";
 const VideoItem = ({ video }) => {
   console.log(video);
   return (
-    <div className="fluid m-3">
-      <Image src={video.snippet.thumbnails.default.url} />
-      <div className="m-3">
-        <p className="lead">{video.snippet.title}</p>
+    <div className="container m-3">
+      <Image fluid className="" src={video.snippet.thumbnails.medium.url} />
+      <div className="m-3 text-center">
+        <p className="fw-bold">{video.snippet.title}</p>
         <span className="link">{video.snippet.channelTitle}</span>
         <br />
         <span className="footer">

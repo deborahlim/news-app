@@ -42,7 +42,7 @@ const MyNavbar = () => {
         />
         <Navbar.Collapse id="basic-navbar-nav" className="my-4 my-md-0">
           <div className="my-3 my-md-0 mx-auto search-box">
-            <SearchForm />
+            <SearchForm endpoint="news" placeholder="Search keywords, topics and more..."/>
           </div>
 
           <div className="d-md-flex flex-row">
