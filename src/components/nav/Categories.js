@@ -7,7 +7,7 @@ import SideBarNav from "./SidebarNav";
 const Categories = () => {
 let {url} = useRouteMatch();
   return (
-    <Container fluid>
+    <Container className="my-5" fluid>
       <Nav className="justify-content-center">
         <Nav.Link as={NavLink} to={`${url}/top-headlines/breaking-news`}>
           Breaking News
