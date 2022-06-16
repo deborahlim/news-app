@@ -1,5 +1,5 @@
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import SearchForm from "./SearchForm";
+import SearchForm from "../misc/SearchForm";
 // import link component,
 // which renders anchor tags and react router
 // internally listens to clicks on those links,
@@ -8,7 +8,7 @@ import SearchForm from "./SearchForm";
 // NavLink is like Link component but it also sets a CSS class on the active anchor item
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { clearState } from "../redux/userSlice";
+import { clearState } from "../../redux/userSlice";
 import { toast } from "react-toastify";
 import "./Navbar.css";
 const MyNavbar = () => {

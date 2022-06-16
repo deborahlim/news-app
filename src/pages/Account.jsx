@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Card, Button, Row, Col, Form, Spinner } from "react-bootstrap";
-import MyModal from "../components/MyModal";
+import MyModal from "../components/misc/MyModal";
 import { languages, countries } from "../util/options";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -14,7 +14,7 @@ import {
   updateCurrUserNewsSettings,
 } from "../redux/userSlice";
 import useInput from "../hooks/use-input";
-import Header from "../components/Header";
+import Header from "../components/misc/Header";
 import { toast } from "react-toastify";
 
 const Account = () => {

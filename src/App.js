@@ -8,13 +8,13 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/nav/Navbar";
 import News from "./pages/News";
 import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import GoogleAuth from "./components/GoogleAuth";
-import SavedTopics from "./components/SavedTopics";
+import GoogleAuth from "./components/auth/GoogleAuth";
+import SavedTopics from "./pages/SavedTopics";
 import Videos from "./pages/Videos";
 
 function App() {

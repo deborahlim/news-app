@@ -1,14 +1,14 @@
-import Classes from "./Form.module.css";
+import Classes from "../misc/Form.module.css";
 import { Form, Button, Spinner } from "react-bootstrap";
-import useInput from "../hooks/use-input";
+import useInput from "../../hooks/use-input";
 
 import { useEffect } from "react";
-import GoogleAuth from "./GoogleAuth";
+import GoogleAuth from "../auth/GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import { userSelector, signupUser, clearState } from "../redux/userSlice";
+import { userSelector, signupUser, clearState } from "../../redux/userSlice";
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();

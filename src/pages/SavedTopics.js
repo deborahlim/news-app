@@ -2,7 +2,7 @@ import { userSelector } from "../redux/userSlice";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Badge, Spinner, Row, Nav } from "react-bootstrap";
-import NewsCard from "./NewsCard";
+import NewsCard from "../components/news/NewsCard";
 import useArticles from "../hooks/use-articles";
 import { useEffect, useState } from "react";
 

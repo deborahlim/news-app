@@ -1,8 +1,8 @@
 // useEffect is good for code that should be exected as part
 //  of the component render cycle, but maybe not always when the component re renders
 
-import NewsCardGrid from "../components/NewsCardGrid";
-import Categories from "../components/Categories";
+import NewsCardGrid from "../components/news/NewsCardGrid";
+import Categories from "../components/nav/Categories";
 
 import { Switch, Redirect, Route, useRouteMatch } from "react-router-dom";
 

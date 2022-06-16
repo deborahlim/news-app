@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 
 import { Form, Button, Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
-import Classes from "./Form.module.css";
-import useInput from "../hooks/use-input";
-import GoogleAuth from "./GoogleAuth";
+import Classes from "../misc/Form.module.css";
+import useInput from "../../hooks/use-input";
+import GoogleAuth from "../auth/GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { userSelector, loginUser, clearState } from "../redux/userSlice";
+import { userSelector, loginUser, clearState } from "../../redux/userSlice";
 
 const LoginForm = () => {
   const dispatch = useDispatch();

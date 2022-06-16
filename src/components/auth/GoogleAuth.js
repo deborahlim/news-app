@@ -3,7 +3,7 @@ import { useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { decodeJwt } from "jose";
-import { googleAuthUser, userSelector, clearState } from "../redux/userSlice";
+import { googleAuthUser, userSelector, clearState } from "../../redux/userSlice";
 import { toast } from "react-toastify";
 const GoogleAuth = () => {
   const { path } = useRouteMatch();

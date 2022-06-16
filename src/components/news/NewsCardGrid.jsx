@@ -3,14 +3,15 @@ import { useParams } from "react-router-dom";
 
 import { Row, Spinner, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { userSelector, updateCurrUserSavedTopics } from "../redux/userSlice";
+import { userSelector, updateCurrUserSavedTopics } from "../../redux/userSlice";
 import NewsCard from "./NewsCard";
-import useArticles from "../hooks/use-articles";
-import Header from "../components/Header";
-import { topics } from "../util/options";
+import useArticles from "../../hooks/use-articles";
+import Header from "../../components/misc/Header";
+import { topics } from "../../util/options";
 import { toast } from "react-toastify";
 
 const NewsCardGrid = () => {
+  console.log("rendered");
   const { lang, country, token, savedTopics, errorMessage } =
     useSelector(userSelector);
   const { endpoint, topic } = useParams();
@@ -59,7 +60,6 @@ const NewsCardGrid = () => {
   } else {
     content = `No news articles were found. Please try again.`;
   }
-  console.log(articles);
   return (
     <section>
       <Header

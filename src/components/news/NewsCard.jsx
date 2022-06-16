@@ -1,6 +1,6 @@
-import { Card } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import "./NewsCard.css";
-import Col from "react-bootstrap/Col";
+
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
   const truncateDescription = (description) => {

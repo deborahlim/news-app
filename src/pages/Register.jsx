@@ -1,5 +1,5 @@
-import Header from "../components/Header";
-import RegisterForm from "../components/RegisterForm";
+import Header from "../components/misc/Header";
+import RegisterForm from "../components/auth/RegisterForm";
 const Register = () => {
   return (
     <section>
