@@ -10,8 +10,8 @@ const users = axios.create({
 const googleAuthAPI = async (data) => {
   try {
     const response = await users.post("signup", data);
-    console.log(response)
-    return {...response.data, newUser: true};
+    console.log(response);
+    return { ...response.data, newUser: true };
   } catch (err) {
     if (err.response?.data.error.code === 11000) {
       try {
@@ -62,12 +62,14 @@ const getCurrUserAPI = async (data) => {
 };
 
 const updateCurrUserDetailsAPI = async (data) => {
+  console.log(data);
   try {
     let response = await users.patch(
       "updateMe",
       {
         name: data.name,
         email: data.email,
+        photo: data.photo,
       },
       {
         headers: {
@@ -108,7 +110,7 @@ const updateCurrUserSavedTopicsAPI = async (data) => {
     let response = await users.patch(
       "updateMe",
       {
-        savedTopics: data.savedTopics
+        savedTopics: data.savedTopics,
       },
       {
         headers: {
@@ -123,14 +125,19 @@ const updateCurrUserSavedTopicsAPI = async (data) => {
   }
 };
 
-const updateCurrUserPasswordAPI = async ({passwordCurrent, password, passwordConfirm, token}) => {
+const updateCurrUserPasswordAPI = async ({
+  passwordCurrent,
+  password,
+  passwordConfirm,
+  token,
+}) => {
   try {
     let response = await users.patch(
       "updatePassword",
       {
         passwordCurrent,
         password,
-        passwordConfirm
+        passwordConfirm,
       },
       {
         headers: {
@@ -166,5 +173,5 @@ export {
   updateCurrUserPasswordAPI,
   updateCurrUserNewsSettingsAPI,
   deleteCurrUserAPI,
-  updateCurrUserSavedTopicsAPI
+  updateCurrUserSavedTopicsAPI,
 };

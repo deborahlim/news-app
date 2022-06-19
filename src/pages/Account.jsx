@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { Card, Button, Row, Col, Form, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Card, Button, Row, Col, Form, Spinner, Image } from "react-bootstrap";
 import MyModal from "../components/misc/MyModal";
 import { languages, countries } from "../util/options";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import {
 import useInput from "../hooks/use-input";
 import Header from "../components/misc/Header";
 import { toast } from "react-toastify";
+import CloudinaryUploadWidget from "../components/misc/CloudinaryUploadWidget";
 
 const Account = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,12 @@ const Account = () => {
     lang,
     role,
     isGoogleAuth,
+    photo,
   } = useSelector(userSelector);
+
+  // photo
+  const [uploadedPhoto, setUploadedPhoto] = useState(photo);
+  console.log(uploadedPhoto);
   // email
   const {
     value: enteredEmail,
@@ -93,7 +99,7 @@ const Account = () => {
       </option>
     );
   }
-  console.log(enteredCountry);
+
   // language
   const {
     value: enteredLanguage,
@@ -128,6 +134,7 @@ const Account = () => {
     let enteredData = {
       name: enteredUsername,
       email: enteredEmail,
+      photo: uploadedPhoto,
       token: token,
     };
     try {
@@ -196,7 +203,8 @@ const Account = () => {
     } else {
       history.push("/");
     }
-  }, [history, dispatch, token]);
+    setUploadedPhoto(photo);
+  }, [history, dispatch, token, photo]);
 
   let content;
   if (isError) {
@@ -269,6 +277,25 @@ const Account = () => {
                   disabled
                   className="form-control-sm"
                 />
+              </Col>
+            </Row>
+            <Row className="my-4">
+              <Col>
+                <Form.Label> Profile Photo </Form.Label>
+              </Col>
+              <Col>
+                <div className="my-3">
+                  <Image src={uploadedPhoto} rounded />
+                </div>
+                {
+                  <CloudinaryUploadWidget
+                    message={
+                      (uploadedPhoto ? "Change " : "Upload ") +
+                      "your profile photo"
+                    }
+                    onVideoUploaded={setUploadedPhoto}
+                  />
+                }
               </Col>
             </Row>
             <Button

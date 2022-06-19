@@ -159,6 +159,7 @@ export const userSlice = createSlice({
     errorMessage: null,
     isGoogleAuth: false,
     savedTopics: [],
+    photo: null,
   },
   reducers: {
     clearState: (state) => {
@@ -168,6 +169,7 @@ export const userSlice = createSlice({
       state.lang = "";
       state.token = null;
       state.role = "";
+      state.photo = null;
       state.isFetching = false;
       state.isSuccess = false;
       state.isError = false;
@@ -258,6 +260,7 @@ export const userSlice = createSlice({
       state.country = payload.data.country;
       state.lang = payload.data.language;
       state.role = payload.data.role;
+      state.photo = payload.data.photo;
     },
     [getCurrUser.pending]: (state) => {
       state.isFetching = true;
@@ -275,6 +278,7 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.email = payload.data.user.email;
+      state.photo = payload.data.user.photo;
     },
     [updateCurrUserDetails.pending]: (state) => {
       state.isFetching = true;
@@ -337,7 +341,7 @@ export const userSlice = createSlice({
       state.isError = true;
       state.errorMessage = payload;
     },
-    [deleteCurrUser.fulfilled]: (state, { payload }) => {
+    [deleteCurrUser.fulfilled]: (state) => {
       state.isFetching = false;
       state.isSuccess = true;
       state.name = "";

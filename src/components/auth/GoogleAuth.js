@@ -28,7 +28,7 @@ const GoogleAuth = () => {
         } else {
           toast.success(`Welcome Back, ${response.data.user.name}`);
         }
-        history.push("/");
+        history.push("/news");
       } catch (err) {
         let errorMessage = err;
         console.log(errorMessage);
