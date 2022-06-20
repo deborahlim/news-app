@@ -22,9 +22,10 @@ const useArticles = () => {
         },
       });
       setArticles(response.data.articles);
-      setIsLoading(false);
     } catch (error) {
-      setError(error);
+      setIsLoading(false);
+      setError("Something Went Wrong! Try again later.");
+      console.log(error);
     }
   }, []);
 
