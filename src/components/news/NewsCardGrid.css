@@ -1,0 +1,5 @@
+.tooltips:hover {
+    cursor: pointer;
+    color: orangered;
+    transition: .1s;
+}

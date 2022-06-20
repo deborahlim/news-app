@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-import { Row, Spinner, Button } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { PlusCircle } from "react-bootstrap-icons";
+import ReactTooltip from "react-tooltip";
+
 import { userSelector, updateCurrUserSavedTopics } from "../../redux/userSlice";
 import NewsCard from "./NewsCard";
 import useArticles from "../../hooks/use-articles";
 import Header from "../../components/misc/Header";
 import { topics } from "../../util/options";
-import { toast } from "react-toastify";
 
+import "./NewsCardGrid.css";
 const NewsCardGrid = () => {
-  console.log("rendered");
   const { lang, country, token, savedTopics, errorMessage } =
     useSelector(userSelector);
   const { endpoint, topic } = useParams();
@@ -25,8 +27,16 @@ const NewsCardGrid = () => {
   });
   const [articles, fetchArticles, error, isLoading] = useArticles();
 
+  const checkAllowAddToSavedTopic = () => {
+    let isSavedTopic = !!savedTopics.find((el) => el === topic);
+    let isPredefinedTopic = !!topics.find((el) => el === topic);
+    return !isPredefinedTopic && !isSavedTopic;
+  };
+
   const addToSavedTopicsHandler = (event) => {
     event.preventDefault();
+    let checkAllow = checkAllowAddToSavedTopic();
+    if (!token || !checkAllow) return;
     const updatedSavedTopics = savedTopics.slice();
     updatedSavedTopics.push(topic);
     let enteredData = {
@@ -64,12 +74,19 @@ const NewsCardGrid = () => {
     <section>
       <Header
         title={endpoint === "search" ? `Search Results: ${topic}` : `${topic}`}
-      ></Header>
-      {token && !topics.find((el) => el === topic) && (
-        <Button variant="secondary" size="sm" onClick={addToSavedTopicsHandler}>
-          Add to Saved Topics
-        </Button>
-      )}
+      >
+        {token && checkAllowAddToSavedTopic() && (
+          <>
+            <PlusCircle
+              className="ms-3 tooltips"
+              onClick={addToSavedTopicsHandler}
+              data-tip="Add to Saved Topics"
+              size={30}
+            />
+            <ReactTooltip />
+          </>
+        )}
+      </Header>
 
       <Row
         xs={1}
