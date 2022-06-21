@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import {
+  NavLink,
+  useHistory,
+  Route,
+  useRouteMatch,
+  Switch,
+} from "react-router-dom";
 import { Badge, Spinner, Row, Nav } from "react-bootstrap";
 import { XCircle } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
@@ -13,6 +19,7 @@ import "../components/nav/Navbar.css";
 import "../components/misc/tooltips.css";
 
 const SavedTopics = () => {
+  let { path } = useRouteMatch();
   let { savedTopics, token, lang, country, errorMessage } =
     useSelector(userSelector);
   const [articles, fetchArticles, error, isLoading] = useArticles();
@@ -47,13 +54,17 @@ const SavedTopics = () => {
   };
 
   useEffect(() => {
+    console.log(currentTopic);
     if (currentTopic) {
+      history.push(`${path}/${currentTopic}`);
       fetchArticles({
         endpoint: "search",
         lang,
         country,
         topic: currentTopic,
       });
+    } else {
+      history.push(`${path}`);
     }
   }, [currentTopic, lang, country, fetchArticles]);
 
@@ -64,8 +75,12 @@ const SavedTopics = () => {
   if (savedTopics.length > 0) {
     topicsContent = savedTopics.map((topic) => {
       return (
-        <>
-          <Badge bg="light" className="m-1" key={topic}>
+        <span className="display-6 m-2">
+          <Badge
+            bg="light"
+            key={topic}
+            className="d-inline-flex align-items-center"
+          >
             <Nav.Link
               as={NavLink}
               to={topic}
@@ -75,35 +90,31 @@ const SavedTopics = () => {
             </Nav.Link>
             {/* only allow to remove if badge is active */}
             {topic === currentTopic && (
-              <>
+              <span>
                 <XCircle
-                  className="ms-2 tooltip-action"
+                  className="tooltip-action"
                   onClick={removeFromSavedTopicsHandler}
                   data-tip="Remove from Saved Topics"
-                  size={20}
-                  // key={topic}
+                  size={30}
                 />
                 <ReactTooltip />
-              </>
+              </span>
             )}
           </Badge>
-        </>
+        </span>
       );
     });
   } else {
-    topicsContent = <p className="lead">You do not have any saved topics</p>;
     if (!token) {
-      articlesContent = (
+      topicsContent = (
         <p className="lead">
           <NavLink to="/login">Log In</NavLink> to your account to see your
           saved topics
         </p>
       );
     } else {
-      articlesContent = (
-        <p className="lead">
-          <NavLink to="/">Explore</NavLink> more articles
-        </p>
+      topicsContent = (
+        <p className="lead">You do not have any saved topics at the moment.</p>
       );
     }
   }
@@ -113,10 +124,7 @@ const SavedTopics = () => {
     articlesContent = <Spinner size="lg" animation="grow" />;
   } else if (error) {
     articlesContent = error;
-  }
-
-  // article content
-  else if (token && articles.length > 0) {
+  } else if (token && articles.length > 0) {
     articlesContent = articles.map((article) => {
       return <NewsCard article={article} key={article.url} />;
     });
@@ -127,19 +135,25 @@ const SavedTopics = () => {
       </p>
     );
   }
-
   return (
     <>
       <h1 className="m-5">Saved Topics</h1>
-      {topicsContent}
-      <Row
-        xs={1}
-        sm={2}
-        lg={3}
-        className="g-4 m-5 px-md-5 justify-content-center"
-      >
-        {articlesContent}
-      </Row>
+      <Switch>
+        <Route exact path={path}>
+          {topicsContent}
+        </Route>
+        <Route path={`${path}/:topic`}>
+          {topicsContent}
+          <Row
+            xs={1}
+            sm={2}
+            lg={3}
+            className="g-4 m-5 px-md-5 justify-content-center"
+          >
+            {articlesContent}
+          </Row>
+        </Route>
+      </Switch>
     </>
   );
 };
