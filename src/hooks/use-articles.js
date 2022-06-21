@@ -21,6 +21,7 @@ const useArticles = () => {
           q: query,
         },
       });
+      setIsLoading(false);
       setArticles(response.data.articles);
     } catch (error) {
       setIsLoading(false);
