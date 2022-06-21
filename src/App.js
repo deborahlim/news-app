@@ -4,10 +4,8 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./App.css";
+
 import Navbar from "./components/nav/Navbar";
 import News from "./pages/News";
 import Account from "./pages/Account";
@@ -16,6 +14,9 @@ import Login from "./pages/Login";
 import GoogleAuth from "./components/auth/GoogleAuth";
 import SavedTopics from "./pages/SavedTopics";
 import Videos from "./pages/Videos";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 function App() {
   return (
@@ -46,7 +47,7 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path="/saved-topics">
+            <Route path={`/saved-topics/:topic`}>
               <SavedTopics />
             </Route>
             <Route path="/youtube/search">
