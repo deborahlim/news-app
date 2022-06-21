@@ -12,7 +12,7 @@ import useArticles from "../../hooks/use-articles";
 import Header from "../../components/misc/Header";
 import { topics } from "../../util/options";
 
-import "./NewsCardGrid.css";
+import "../misc/tooltips.css";
 const NewsCardGrid = () => {
   const { lang, country, token, savedTopics, errorMessage } =
     useSelector(userSelector);
@@ -84,7 +84,7 @@ const NewsCardGrid = () => {
         {checkAllowAddToSavedTopic() && (
           <>
             <PlusCircle
-              className="ms-2 tooltip-plus"
+              className="ms-2 tooltip-action"
               onClick={addToSavedTopicsHandler}
               data-tip="Add to Saved Topics"
               size={20}

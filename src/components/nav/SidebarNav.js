@@ -1,14 +1,15 @@
 import { useState } from "react";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Nav from "react-bootstrap/Nav";
-import {NavLink} from "react-router-dom";
-import Container  from "react-bootstrap/Container";
+import { Offcanvas, Nav, Container } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
-const SideBarNav = ({ name}) => {
+import { userSelector } from "../../redux/userSlice";
+import { useSelector } from "react-redux";
+
+const SideBarNav = ({ name }) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const { savedTopics } = useSelector(userSelector);
 
   return (
     <>
@@ -21,13 +22,18 @@ const SideBarNav = ({ name}) => {
           <Offcanvas.Title>GNews</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-
-      <Container>
-          <Nav className="flex-column">
-            <Nav.Link as={NavLink} to={`/saved-topics`}>Saved Topics</Nav.Link>
-            <Nav.Link as={NavLink} to={`/youtube/search/news`}>Videos</Nav.Link>
-          </Nav>
-          
+          <Container>
+            <Nav className="flex-column">
+              <Nav.Link
+                as={NavLink}
+                to={`/saved-topics/${savedTopics[savedTopics.length - 1]}`}
+              >
+                Saved Topics
+              </Nav.Link>
+              <Nav.Link as={NavLink} to={`/youtube/search/news`}>
+                Videos
+              </Nav.Link>
+            </Nav>
           </Container>
         </Offcanvas.Body>
       </Offcanvas>

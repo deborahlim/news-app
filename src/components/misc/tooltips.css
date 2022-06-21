@@ -1,0 +1,20 @@
+.tooltip-action {
+    color: black;
+}
+
+.tooltip-action:hover {
+    color: orangered;
+    cursor: pointer;
+}
+
+.tooltip-check:hover {
+   color: black;
+}
+
+.tooltip-action:focus {
+    outline: none;
+}
+
+.tooltip-check:focus {
+    outline: none;
+}

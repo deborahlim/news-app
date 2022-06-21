@@ -1,16 +1,19 @@
 import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
-import SearchForm from "../misc/SearchForm";
+import { NavLink, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 // import link component,
 // which renders anchor tags and react router
 // internally listens to clicks on those links,
 // prevent browser default and maunally update the URL for us,
 // and change the display
 // NavLink is like Link component but it also sets a CSS class on the active anchor item
-import { NavLink, useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+
 import { clearState } from "../../redux/userSlice";
-import { toast } from "react-toastify";
+import SearchForm from "../misc/SearchForm";
+
 import "./Navbar.css";
+
 const MyNavbar = () => {
   let history = useHistory();
   let dispatch = useDispatch();
@@ -61,18 +64,18 @@ const MyNavbar = () => {
               onClick={toggleButtonHandler}
             >
               {isSignedIn || (
-                <div>
+                <>
                   <NavDropdown.Item as={NavLink} to="/register">
                     Register
                   </NavDropdown.Item>
                   <NavDropdown.Item as={NavLink} to="/login">
                     Log In
                   </NavDropdown.Item>
-                </div>
+                </>
               )}
               {/* show if uer is signed in */}
               {isSignedIn && (
-                <div>
+                <>
                   <NavDropdown.Item as={NavLink} to="/my-account">
                     My Account
                   </NavDropdown.Item>
@@ -85,7 +88,7 @@ const MyNavbar = () => {
                   >
                     Log Out
                   </NavDropdown.Item>
-                </div>
+                </>
               )}
             </NavDropdown>
           </div>
