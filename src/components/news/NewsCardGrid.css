@@ -1,5 +1,17 @@
-.tooltips:hover {
-    cursor: pointer;
+.tooltip-plus:hover {
     color: orangered;
+    cursor: pointer;
     transition: .1s;
+}
+
+.tooltip-check:hover {
+   color: black;
+}
+
+.tooltip-plus:focus {
+    outline: none;
+}
+
+.tooltip-check:focus {
+    outline: none;
 }

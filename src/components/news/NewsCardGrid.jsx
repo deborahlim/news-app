@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Row, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { PlusCircle } from "react-bootstrap-icons";
+import { PlusCircle, CheckCircle } from "react-bootstrap-icons";
 import ReactTooltip from "react-tooltip";
 
 import { userSelector, updateCurrUserSavedTopics } from "../../redux/userSlice";
@@ -27,10 +27,16 @@ const NewsCardGrid = () => {
   });
   const [articles, fetchArticles, error, isLoading] = useArticles();
 
-  const checkAllowAddToSavedTopic = () => {
+  const checkIfAddedToSavedTopics = () => {
     let isSavedTopic = !!savedTopics.find((el) => el === topic);
+    return isSavedTopic;
+  }
+
+  const checkAllowAddToSavedTopic = () => {
+    // do not allow if not logged in
+    if (!token) return false;
     let isPredefinedTopic = !!topics.find((el) => el === topic);
-    return !isPredefinedTopic && !isSavedTopic;
+    return !isPredefinedTopic && !checkIfAddedToSavedTopics();
   };
 
   const addToSavedTopicsHandler = (event) => {
@@ -75,17 +81,28 @@ const NewsCardGrid = () => {
       <Header
         title={endpoint === "search" ? `Search Results: ${topic}` : `${topic}`}
       >
-        {token && checkAllowAddToSavedTopic() && (
+        {checkAllowAddToSavedTopic() && (
           <>
             <PlusCircle
-              className="ms-3 tooltips"
+              className="ms-2 tooltip-plus"
               onClick={addToSavedTopicsHandler}
               data-tip="Add to Saved Topics"
-              size={30}
+              size={20}
             />
             <ReactTooltip />
           </>
         )}
+        
+        {checkIfAddedToSavedTopics() &&
+          (<>
+            <CheckCircle
+              className="ms-2 tooltip-check"
+              data-tip="Added to Saved Topics"
+              size={20}
+            />
+            <ReactTooltip />
+          </>)
+        }
       </Header>
 
       <Row
