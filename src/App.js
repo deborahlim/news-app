@@ -47,7 +47,7 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
-            <Route path={`/saved-topics/:topic`}>
+            <Route path={`/saved-topics`}>
               <SavedTopics />
             </Route>
             <Route path="/youtube/search">

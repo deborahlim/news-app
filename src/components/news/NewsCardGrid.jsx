@@ -84,7 +84,7 @@ const NewsCardGrid = () => {
         {checkAllowAddToSavedTopic() && (
           <>
             <PlusCircle
-              className="ms-2 tooltip-action"
+              className="m-2 tooltip-action"
               onClick={addToSavedTopicsHandler}
               data-tip="Add to Saved Topics"
               size={20}
@@ -96,7 +96,7 @@ const NewsCardGrid = () => {
         {checkIfAddedToSavedTopics() &&
           (<>
             <CheckCircle
-              className="ms-2 tooltip-check"
+              className="m-2 tooltip-check"
               data-tip="Added to Saved Topics"
               size={20}
             />

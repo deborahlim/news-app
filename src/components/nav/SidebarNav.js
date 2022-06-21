@@ -9,7 +9,6 @@ const SideBarNav = ({ name }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { savedTopics } = useSelector(userSelector);
 
   return (
     <>
@@ -26,7 +25,7 @@ const SideBarNav = ({ name }) => {
             <Nav className="flex-column">
               <Nav.Link
                 as={NavLink}
-                to={`/saved-topics/${savedTopics[savedTopics.length - 1]}`}
+                to="/saved-topics"
               >
                 Saved Topics
               </Nav.Link>
