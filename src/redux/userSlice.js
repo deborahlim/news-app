@@ -32,7 +32,6 @@ export const signupUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = await signupUserAPI(data);
-      console.log(response);
       return response;
     } catch (err) {
       return thunkAPI.rejectWithValue(err);
@@ -57,7 +56,6 @@ export const googleAuthUser = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let response = await googleAuthAPI(data);
-      console.log(response);
       return response;
     } catch (err) {
       console.dir(err);
@@ -93,7 +91,6 @@ export const updateCurrUserDetails = createAsyncThunk(
 export const updateCurrUserNewsSettings = createAsyncThunk(
   "users/updateCurrUserNewsSettings",
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       let response = await updateCurrUserNewsSettingsAPI(data);
       return response;
@@ -106,7 +103,6 @@ export const updateCurrUserNewsSettings = createAsyncThunk(
 export const updateCurrUserSavedTopics = createAsyncThunk(
   "users/updateCurrUserSavedTopics",
   async (data, thunkAPI) => {
-    console.log(data);
     try {
       let response = await updateCurrUserSavedTopicsAPI(data);
       return response;

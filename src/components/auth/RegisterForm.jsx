@@ -5,7 +5,7 @@ import useInput from "../../hooks/use-input";
 import { useEffect } from "react";
 import GoogleAuth from "../auth/GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { userSelector, signupUser, clearState } from "../../redux/userSlice";
@@ -170,6 +170,9 @@ const RegisterForm = () => {
         <p className="lead my-3">OR</p>
         <GoogleAuth />
         <div style={{ display: "inline-block" }} id="buttonDiv"></div>
+        <p className="m-3">
+          <NavLink to="/login">Log In</NavLink> to your account instead
+        </p>
       </Form>
     </div>
   );

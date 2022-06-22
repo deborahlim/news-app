@@ -25,14 +25,16 @@
   color: orangered;
 }
 
-.nav-home {
-  color: black !important;
-}
-
 .nav-home:active {
   color: orangered !important;
 }
 
 .nav-home:hover {
   color: orangered !important;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  width: 50px;
+  background-color: rgba(128, 128, 128, 0.212);
 }
