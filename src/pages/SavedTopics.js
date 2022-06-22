@@ -66,7 +66,7 @@ const SavedTopics = () => {
     } else {
       history.push(`${path}`);
     }
-  }, [currentTopic, lang, country, fetchArticles]);
+  }, [currentTopic, lang, country, fetchArticles, history, path]);
 
   let topicsContent;
   let articlesContent;
