@@ -13,6 +13,8 @@ import Header from "../../components/misc/Header";
 import { topics } from "../../util/options";
 
 import "../misc/tooltips.css";
+import "./NewsCardGrid.css";
+
 const NewsCardGrid = () => {
   const { lang, country, token, savedTopics, errorMessage } =
     useSelector(userSelector);
@@ -30,7 +32,7 @@ const NewsCardGrid = () => {
   const checkIfAddedToSavedTopics = () => {
     let isSavedTopic = !!savedTopics.find((el) => el === topic);
     return isSavedTopic;
-  }
+  };
 
   const checkAllowAddToSavedTopic = () => {
     // do not allow if not logged in
@@ -77,7 +79,7 @@ const NewsCardGrid = () => {
     content = `No news articles were found. Please try again.`;
   }
   return (
-    <section>
+    <>
       <Header
         title={endpoint === "search" ? `Search Results: ${topic}` : `${topic}`}
       >
@@ -92,28 +94,29 @@ const NewsCardGrid = () => {
             <ReactTooltip />
           </>
         )}
-        
-        {checkIfAddedToSavedTopics() &&
-          (<>
+
+        {checkIfAddedToSavedTopics() && (
+          <>
             <CheckCircle
               className="m-2 tooltip-check"
               data-tip="Added to Saved Topics"
               size={20}
             />
             <ReactTooltip />
-          </>)
-        }
+          </>
+        )}
       </Header>
-
-      <Row
-        xs={1}
-        sm={2}
-        lg={3}
-        className="g-4 m-5 px-md-5 justify-content-center"
-      >
-        {content}
-      </Row>
-    </section>
+      <div className="mb-3 d-inline-flex news-grid justify-content-center">
+        <Row
+          xs={1}
+          sm={2}
+          lg={3}
+          className="g-4 m-2 px-md-5 "
+        >
+          {content}
+        </Row>
+      </div>
+    </>
   );
 };
 
