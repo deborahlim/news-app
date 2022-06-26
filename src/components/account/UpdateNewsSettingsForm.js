@@ -59,7 +59,7 @@ const UpdateForm = () => {
     <Form className="mt-5 mb-3" onSubmit={updateNewsFeedSettingsHandler}>
       <Card.Title className="mb-4">News Feed Settings</Card.Title>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label>Country</Form.Label>
         </Col>
         <Col>
@@ -73,7 +73,7 @@ const UpdateForm = () => {
         </Col>
       </Row>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label>Language</Form.Label>
         </Col>
         <Col>

@@ -79,7 +79,7 @@ const UpdatePasswordForm = () => {
       <Form className="mt-5 mb-3" onSubmit={updatePasswordFormHandler}>
         <Card.Title className="mb-4">Password Change</Card.Title>
         <Row className="my-4">
-          <Col>
+          <Col sm={5}>
             <Form.Label>Current Password</Form.Label>
           </Col>
           <Col>
@@ -99,7 +99,7 @@ const UpdatePasswordForm = () => {
           </Col>
         </Row>
         <Row className="my-4">
-          <Col>
+          <Col sm={5}>
             <Form.Label>New Password</Form.Label>
           </Col>
           <Col>
@@ -119,7 +119,7 @@ const UpdatePasswordForm = () => {
           </Col>
         </Row>
         <Row className="my-4">
-          <Col>
+          <Col sm={5}>
             <Form.Label>Confirm New Password</Form.Label>
           </Col>
           <Col>

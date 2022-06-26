@@ -66,7 +66,7 @@ const UpdateDetailsFrom = () => {
     <Form onSubmit={updateDetailsFormHandler} className="my-3">
       <Card.Title className="mb-4">Basic Info</Card.Title>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label>Username</Form.Label>
         </Col>
         <Col>
@@ -86,7 +86,7 @@ const UpdateDetailsFrom = () => {
         </Col>
       </Row>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label>Email</Form.Label>
         </Col>
         <Col>
@@ -112,7 +112,7 @@ const UpdateDetailsFrom = () => {
         </Col>
       </Row>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label> Role </Form.Label>
         </Col>
         <Col>
@@ -125,7 +125,7 @@ const UpdateDetailsFrom = () => {
         </Col>
       </Row>
       <Row className="my-4">
-        <Col>
+        <Col sm={5}>
           <Form.Label> Profile Photo </Form.Label>
         </Col>
         <Col>

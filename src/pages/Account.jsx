@@ -45,7 +45,7 @@ const Account = () => {
     content = <Spinner size="lg" animation="grow" />;
   } else {
     content = (
-      <Card className="m-5 p-3">
+      <Card className="m-2 m-md-5 p-3 account-card">
         <Card.Body className="text-start">
           <UpdateDetailsForm />
           <hr />
