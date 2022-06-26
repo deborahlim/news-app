@@ -35,6 +35,8 @@
 
 .profile-picture {
   border-radius: 50%;
-  width: 50px;
+  width: 32px;
+  height: 32px;
   background-color: rgba(128, 128, 128, 0.212);
 }
+

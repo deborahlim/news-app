@@ -40,7 +40,11 @@ const MyNavbar = () => {
   return (
     <Navbar bg="light" expand="md">
       <Container fluid>
-        <Navbar.Brand as={NavLink} to="/top-headlines/breaking-news">
+        <Navbar.Brand
+          as={NavLink}
+          to="/top-headlines/breaking-news"
+          className="fw-bold"
+        >
           GNews
         </Navbar.Brand>
         <Navbar.Toggle
@@ -76,7 +80,7 @@ const MyNavbar = () => {
 
             {isSignedIn && (
               <NavDropdown
-                title={<img src={photo} />}
+                title={<img src={photo} className="profile-picture" />}
                 id="basic-nav-dropdown"
                 align="end"
                 onClick={toggleButtonHandler}

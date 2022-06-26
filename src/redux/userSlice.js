@@ -189,9 +189,9 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.token = payload.token;
-      state.country = payload.country;
-      state.lang = payload.language;
-      state.savedTopics = payload.savedTopics;
+      state.country = payload.data.user.country;
+      state.lang = payload.data.user.language;
+      state.photo = payload.data.user.photo;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
@@ -210,9 +210,10 @@ export const userSlice = createSlice({
       state.isSuccess = true;
       state.name = payload.data.user.name;
       state.token = payload.token;
-      state.country = payload.country;
-      state.lang = payload.language;
-      state.savedTopics = payload.savedTopics;
+      state.country = payload.data.user.country;
+      state.lang = payload.data.user.language;
+      state.savedTopics = payload.data.user.savedTopics;
+      state.photo = payload.data.user.photo;
     },
     [loginUser.pending]: (state) => {
       state.isFetching = true;
@@ -234,6 +235,7 @@ export const userSlice = createSlice({
       state.lang = payload.data.user.language;
       state.isGoogleAuth = true;
       state.savedTopics = payload.data.user.savedTopics;
+      state.photo = payload.data.user.photo;
     },
     [googleAuthUser.pending]: (state) => {
       state.isFetching = true;

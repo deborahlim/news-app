@@ -8,6 +8,8 @@ import CloudinaryUploadWidget from "../../components/misc/CloudinaryUploadWidget
 import useInput from "../../hooks/use-input";
 import { updateCurrUserDetails, userSelector } from "../../redux/userSlice";
 
+import "./UpdateDetailsForm.css"
+
 const UpdateDetailsFrom = () => {
   const dispatch = useDispatch();
   const { errorMessage, token, name, email, role, isGoogleAuth, photo } =
@@ -128,7 +130,7 @@ const UpdateDetailsFrom = () => {
         </Col>
         <Col>
           <div className="my-3">
-            <Image src={uploadedPhoto} rounded />
+            <Image src={uploadedPhoto} thumbnail className="uploaded-picture"/>
           </div>
           {
             <CloudinaryUploadWidget
