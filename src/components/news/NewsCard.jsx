@@ -4,12 +4,11 @@ import { timeElaspedSinceCurr } from "../../util/formatDate";
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
   const truncateDescription = (description) => {
-    let reDot = /[.]/g;
-    let indexOfDot = description.search(reDot);
-    let upToFullStop = description.slice(0, indexOfDot + 1);
-    return upToFullStop.length > 50
-      ? upToFullStop.slice(0, 51) + "..."
-      : upToFullStop;
+    let upTo144Char = description;
+    if(description.length > 144) {
+      upTo144Char = description.slice(0, 145) + "...";
+    }
+    return upTo144Char;
   };
 
   return (
