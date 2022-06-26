@@ -15,4 +15,8 @@
   height: 200px;
 }
 
+.news-card-title {
+  min-height: 100px;
+}
+
 

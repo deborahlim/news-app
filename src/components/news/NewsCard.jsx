@@ -3,12 +3,11 @@ import "./NewsCard.css";
 import { timeElaspedSinceCurr } from "../../util/formatDate";
 const NewsCard = (props) => {
   const { image, url, description, title, publishedAt, source } = props.article;
-  const truncateDescription = (description) => {
-    let upTo144Char = description;
-    if(description.length > 144) {
-      upTo144Char = description.slice(0, 145) + "...";
+  const truncateContent = (content, noOfChars) => {
+    if (description.length > noOfChars) {
+      content = content.slice(0, noOfChars + 1) + "...";
     }
-    return upTo144Char;
+    return content;
   };
 
   return (
@@ -17,8 +16,8 @@ const NewsCard = (props) => {
         <Card className="news-card">
           <Card.Img variant="top" src={image} className="news-card-img" />
           <Card.Body>
-            <Card.Title>{title}</Card.Title>
-            <Card.Text>{truncateDescription(description)}</Card.Text>
+            <Card.Title className="news-card-title">{title}</Card.Title>
+            <Card.Text>{truncateContent(description, 144)}</Card.Text>
           </Card.Body>
           <Card.Footer className="text-muted">
             {timeElaspedSinceCurr(publishedAt)}
