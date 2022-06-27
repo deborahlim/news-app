@@ -1,15 +1,14 @@
 import React, { useEffect } from "react";
-
-import { Form, Button, Spinner, Nav } from "react-bootstrap";
-import { toast } from "react-toastify";
-import Classes from "../misc/Form.module.css";
-import useInput from "../../hooks/use-input";
-import GoogleAuth from "../auth/GoogleAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
+import { Form, Button, Spinner } from "react-bootstrap";
+import { toast } from "react-toastify";
 
+import useInput from "../../hooks/use-input";
+import GoogleAuth from "../auth/GoogleAuth";
 import { userSelector, loginUser, clearState } from "../../redux/userSlice";
 
+import  "../misc/Form.css";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -78,7 +77,7 @@ const LoginForm = () => {
   ) : (
     <div>
       {isError && <span className="text-danger">{errorMessage}</span>}
-      <Form className={Classes.form} onSubmit={submissionFormHandler}>
+      <Form className="form m-sm-0" onSubmit={submissionFormHandler}>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control

@@ -1,14 +1,14 @@
-import Classes from "../misc/Form.module.css";
-import { Form, Button, Spinner } from "react-bootstrap";
-import useInput from "../../hooks/use-input";
-
 import { useEffect } from "react";
-import GoogleAuth from "../auth/GoogleAuth";
+import { Form, Button, Spinner } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, NavLink } from "react-router-dom";
-
 import { toast } from "react-toastify";
+
+import useInput from "../../hooks/use-input";
+import GoogleAuth from "../auth/GoogleAuth";
 import { userSelector, signupUser, clearState } from "../../redux/userSlice";
+
+import "../misc/Form.css";
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -107,7 +107,7 @@ const RegisterForm = () => {
     <Spinner size="lg" animation="grow" />
   ) : (
     <div>
-      <Form className={Classes.form} onSubmit={submissionFormHandler}>
+      <Form className="form" onSubmit={submissionFormHandler}>
         <Form.Group className="mb-3" controlId="formGroupUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control

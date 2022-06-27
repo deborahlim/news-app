@@ -1,0 +1,12 @@
+.form {
+  margin: auto;
+  width: 85%;
+  padding-bottom: 30px;
+}
+
+
+@media screen and (min-width: 576px) {
+  .form {
+    width: 50%;
+  }
+}
