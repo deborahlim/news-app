@@ -18,6 +18,7 @@ const VideoDetail = ({ video }) => {
         <h4 className=" fw-bold">{video.snippet.title}</h4>
         <a
           target="_blank"
+          rel="noreferrer"
           href={`https://www.youtube.com/user/${removeWhiteSpaces(
             video.snippet.channelTitle
           )}`}
