@@ -77,7 +77,7 @@ const LoginForm = () => {
   ) : (
     <div>
       {isError && <span className="text-danger">{errorMessage}</span>}
-      <Form className="form m-sm-0" onSubmit={submissionFormHandler}>
+      <Form className="form" onSubmit={submissionFormHandler}>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
