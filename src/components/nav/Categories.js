@@ -18,7 +18,7 @@ let {url} = useRouteMatch();
         <Nav.Link as={NavLink} to={`${url}/top-headlines/business`}>
           Business
         </Nav.Link>
-        <Nav.Link as={NavLink} to={`${url}/top-headlines/tech`}>
+        <Nav.Link as={NavLink} to={`${url}/top-headlines/technology`}>
           Technology
         </Nav.Link>
         <Nav.Link as={NavLink} to={`${url}/top-headlines/entertainment`}>
