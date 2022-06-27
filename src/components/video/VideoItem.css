@@ -1,0 +1,7 @@
+.video-title {
+    min-height: 120px;
+}
+
+.video-item:hover {
+cursor: pointer;
+}

@@ -3,6 +3,7 @@ import VideoGrid from "../components/video/VideoGrid";
 import VideoDetail from "../components/video/VideoDetail";
 import Header from "../components/misc/Header";
 import useVideos from "../hooks/use-videos";
+
 import { Spinner } from "react-bootstrap";
 import { useState, useEffect } from "react";
 
@@ -18,10 +19,15 @@ const Videos = () => {
   } else if (error) {
     content = error;
   } else if (videos.length > 0) {
-    content = <VideoGrid videos={videos} onVideoSelect={setSelectedVideo} />;
+    content = (
+      <div>
+        <p className="text-start lead">More Results</p>
+        <VideoGrid videos={videos} onVideoSelect={setSelectedVideo} />
+      </div>
+    );
   }
   return (
-    <>
+    <div className="m-5">
       <Header title="Videos" />
       <SearchForm
         endpoint="youtube"
@@ -30,7 +36,7 @@ const Videos = () => {
       />
       <VideoDetail video={selectedVideo} />
       {content}
-    </>
+    </div>
   );
 };
 
