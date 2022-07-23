@@ -20,6 +20,7 @@ const GoogleAuth = () => {
         email: responsePayload.email,
         password: responsePayload.sub,
         passwordConfirm: responsePayload.sub,
+        photo: responsePayload.picture
       };
       try {
         let response = await dispatch(googleAuthUser(data)).unwrap();

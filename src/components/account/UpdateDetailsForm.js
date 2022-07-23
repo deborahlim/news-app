@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
@@ -8,7 +7,7 @@ import CloudinaryUploadWidget from "../../components/misc/CloudinaryUploadWidget
 import useInput from "../../hooks/use-input";
 import { updateCurrUserDetails, userSelector } from "../../redux/userSlice";
 
-import "./UpdateDetailsForm.css"
+import "./UpdateDetailsForm.css";
 
 const UpdateDetailsFrom = () => {
   const dispatch = useDispatch();
@@ -130,16 +129,21 @@ const UpdateDetailsFrom = () => {
         </Col>
         <Col>
           <div className="my-3">
-            <Image src={uploadedPhoto} thumbnail className="uploaded-picture"/>
+            <Image src={uploadedPhoto} thumbnail className="uploaded-picture" />
           </div>
-          {
+          {!isGoogleAuth && (
             <CloudinaryUploadWidget
               message={
                 (uploadedPhoto ? "Change " : "Upload ") + "your profile photo"
               }
               onVideoUploaded={setUploadedPhoto}
             />
-          }
+          )}
+          {isGoogleAuth && (
+            <span className="small">
+              Unlink from your Google Account to update profile photo
+            </span>
+          )}
         </Col>
       </Row>
       <Button

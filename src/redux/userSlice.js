@@ -227,6 +227,7 @@ export const userSlice = createSlice({
       state.errorMessage = payload;
     },
     [googleAuthUser.fulfilled]: (state, { payload }) => {
+      console.dir(payload.data.user)
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;

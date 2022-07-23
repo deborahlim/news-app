@@ -1,9 +1,14 @@
 ## Summary
-This is a news web application which allows users to view news based on categories
-There is also a search function for news article and Youtube videos
-This frontend application is built using React 
-Deployed URL:
-Github Link:
+- Frontend React application which allows users to browse and search for news articles and videos
+- Deployed URL:
+- Github Link:
+
+## Features
+- Authentication for user accounts
+- Personalisation of news articles for logged in users
+- Saved Topics for logged in users
+- News articles based on categories
+- Search function based on keywords
 
 ## Technology Used
 React

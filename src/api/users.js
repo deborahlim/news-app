@@ -10,14 +10,16 @@ const users = axios.create({
 const googleAuthAPI = async (data) => {
   try {
     const response = await users.post("signup", data);
-    console.log(response);
-    return { ...response.data, newUser: true };
+    return { ...response.data, newUser: true, googleAuthUser: true };
   } catch (err) {
     if (err.response?.data.error.code === 11000) {
       try {
         const response = await users.post("login", {
           email: data.email,
           password: data.password,
+          // update photo if it google acc has been updated
+          photo: data.photo,
+          googleAuthUser: true,
         });
         return response.data;
       } catch (err) {
@@ -32,7 +34,7 @@ const googleAuthAPI = async (data) => {
 const signupUserAPI = async (data) => {
   try {
     const response = await users.post("signup", data);
-    return response.data;
+    return { ...response.data, newUser: true };
   } catch (err) {
     throw err.response.data.message;
   }
