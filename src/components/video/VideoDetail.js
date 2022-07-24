@@ -1,6 +1,6 @@
 import { Spinner } from "react-bootstrap";
 import { timeElaspedSinceCurr } from "../../util/formatDate";
-import removeWhiteSpaces from "../../util/removeWhiteSpaces";
+
 import "./VideoDetail.css";
 const VideoDetail = ({ video }) => {
   if (!video) {
@@ -19,9 +19,7 @@ const VideoDetail = ({ video }) => {
         <a
           target="_blank"
           rel="noreferrer"
-          href={`https://www.youtube.com/user/${removeWhiteSpaces(
-            video.snippet.channelTitle
-          )}`}
+          href={`https://www.youtube.com/channel/${video.snippet.channelId}`}
           className="link-primary"
         >
           {video.snippet.channelTitle}

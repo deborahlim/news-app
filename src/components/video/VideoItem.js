@@ -15,7 +15,9 @@ const VideoItem = ({ video, onVideoSelect }) => {
         <div className="m-3 text-center">
           <p className="fw-bold video-title">{video.snippet.title}</p>
           <a
-            href={`https://www.youtube.com/c/${video.snippet.channelTitle}`}
+            target="_blank"
+            rel="noreferrer"
+            href={`https://www.youtube.com/channel/${video.snippet.channelId}`}
             className="link-primary"
           >
             {video.snippet.channelTitle}
