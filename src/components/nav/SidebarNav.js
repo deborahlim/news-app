@@ -2,9 +2,6 @@ import { useState } from "react";
 import { Offcanvas, Nav, Container } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-import { userSelector } from "../../redux/userSlice";
-import { useSelector } from "react-redux";
-
 const SideBarNav = ({ name }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
