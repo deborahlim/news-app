@@ -3,7 +3,11 @@ import { useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { decodeJwt } from "jose";
-import { googleAuthUser, userSelector, clearState } from "../../redux/userSlice";
+import {
+  googleAuthUser,
+  userSelector,
+  clearState,
+} from "../../redux/userSlice";
 import { toast } from "react-toastify";
 const GoogleAuth = () => {
   const { path } = useRouteMatch();
@@ -20,7 +24,7 @@ const GoogleAuth = () => {
         email: responsePayload.email,
         password: responsePayload.sub,
         passwordConfirm: responsePayload.sub,
-        photo: responsePayload.picture
+        photo: responsePayload.picture,
       };
       try {
         let response = await dispatch(googleAuthUser(data)).unwrap();
@@ -47,8 +51,7 @@ const GoogleAuth = () => {
 
     window.onload = function () {
       window.google.accounts.id.initialize({
-        client_id:
-          "349330107806-tg8bbaoem6k1o7kepf4s5fsl2r29585m.apps.googleusercontent.com",
+        client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
         callback: handleCredentialResponse,
       });
       window.google.accounts.id.prompt(); // also display the One Tap dialog
