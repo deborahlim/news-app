@@ -38,6 +38,7 @@ export const signupUser = createAsyncThunk(
     }
   }
 );
+
 export const loginUser = createAsyncThunk(
   "users/loginUser",
   async (data, thunkAPI) => {
@@ -205,7 +206,6 @@ export const userSlice = createSlice({
       state.errorMessage = payload;
     },
     [loginUser.fulfilled]: (state, { payload }) => {
-      console.dir(payload);
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
@@ -227,7 +227,7 @@ export const userSlice = createSlice({
       state.errorMessage = payload;
     },
     [googleAuthUser.fulfilled]: (state, { payload }) => {
-      console.dir(payload.data.user)
+      console.dir(payload.data.user);
       state.isFetching = false;
       state.isSuccess = true;
       state.name = payload.data.user.name;
