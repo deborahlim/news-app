@@ -1,7 +1,7 @@
 ## Summary
 - Frontend React application which allows users to browse and search for news articles and videos
-- Deployed URL:
-- Github Link:
+- Deployed URL: https://clinquant-dango-3fa261.netlify.app
+- Github Link: https://github.com/deborahlim/news-app
 
 ## Features
 - Authentication for user accounts
@@ -11,10 +11,10 @@
 - Search function based on keywords
 
 ## Technology Used
-React
-React Router
-Bootstrap
-Bootstrap React
-Redux Tookit
-React-Redux
-Axios
+- React
+- React Router
+- Bootstrap
+- Bootstrap React
+- Redux Tookit
+- React-Redux
+- Axios
