@@ -17,7 +17,7 @@ const NewsCard = (props) => {
           <Card.Img variant="top" src={image} className="news-card-img" />
           <Card.Body>
             <Card.Title className="news-card-title">{title}</Card.Title>
-            <Card.Text className="news-card-text">{truncateContent(description, 144)}</Card.Text>
+            <Card.Text className="news-card-text">{truncateContent(description, 80)}</Card.Text>
           </Card.Body>
           <Card.Footer className="text-muted">
             {timeElaspedSinceCurr(publishedAt)}
