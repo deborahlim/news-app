@@ -75,7 +75,7 @@ const SavedTopics = () => {
   if (savedTopics.length > 0) {
     topicsContent = savedTopics.map((topic) => {
       return (
-        <span className="display-6 m-2">
+        <span className="display-6 m-2" key={topic}>
           <Badge
             bg="light"
             key={topic}
