@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   return (
     <React.Fragment>
       <Header title="Reset your password" />
-      <p className="lead">We'll email you instructions to reset your password</p>
+      <p className="lead mb-5">We'll email you instructions to reset your password</p>
       <ForgotPasswordForm />
 
     </React.Fragment>
