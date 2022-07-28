@@ -8,7 +8,7 @@ import useInput from "../../hooks/use-input";
 import GoogleAuth from "../auth/GoogleAuth";
 import { userSelector, loginUser, clearState } from "../../redux/userSlice";
 
-import  "../misc/Form.css";
+import "../misc/Form.css";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -119,6 +119,7 @@ const LoginForm = () => {
         <p className="m-3">
           <NavLink to="/register">Register</NavLink> your account instead
         </p>
+        <NavLink to="/forgot-password">Forgot your password?</NavLink>
       </Form>
     </div>
   );

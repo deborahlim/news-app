@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const users = axios.create({
-  baseURL: "http://127.0.0.1:3001/api/users/",
+  baseURL: `${process.env.REACT_APP_USERS_DATABASE_BASE_URL}/api/users/`,
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
@@ -36,7 +36,7 @@ const signupUserAPI = async (data) => {
     const response = await users.post("signup", data);
     return { ...response.data, newUser: true };
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response ? err.response.data.message : err.toJSON().message
   }
 };
 
@@ -45,7 +45,16 @@ const loginUserAPI = async (data) => {
     const response = await users.post("login", data);
     return response.data;
   } catch (err) {
-    throw err.response.data.message;
+    throw err.response ? err.response.data.message : err.toJSON().message
+  }
+};
+
+const forgotPasswordAPI = async (data) => {
+  try {
+    const response = await users.post("forgotPassword", data);
+    return response.data;
+  } catch (err) {
+    throw err.response ? err.response.data.message : err.toJSON().message
   }
 };
 
@@ -169,6 +178,7 @@ const deleteCurrUserAPI = async (data) => {
 export {
   loginUserAPI,
   signupUserAPI,
+  forgotPasswordAPI,
   googleAuthAPI,
   getCurrUserAPI,
   updateCurrUserDetailsAPI,
