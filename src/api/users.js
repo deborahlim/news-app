@@ -12,9 +12,12 @@ const googleAuthAPI = async (data) => {
     const response = await users.post("signup", data);
     return { ...response.data, newUser: true, googleAuthUser: true };
   } catch (err) {
-    console.dir(err)
+    console.dir(err);
     // login instead if user email is already in the system
-    if (err.response?.data.error?.code === 11000 || err.response?.data.message === "This email already exists") {
+    if (
+      err.response?.data.error?.code === 11000 ||
+      err.response?.data.message === "This email already exists"
+    ) {
       try {
         const response = await users.post("login", {
           email: data.email,
@@ -38,7 +41,7 @@ const signupUserAPI = async (data) => {
     const response = await users.post("signup", data);
     return { ...response.data, newUser: true };
   } catch (err) {
-    throw err.response ? err.response.data.message : err.toJSON().message
+    throw err.response ? err.response.data.message : err.toJSON().message;
   }
 };
 
@@ -47,7 +50,7 @@ const loginUserAPI = async (data) => {
     const response = await users.post("login", data);
     return response.data;
   } catch (err) {
-    throw err.response ? err.response.data.message : err.toJSON().message
+    throw err.response ? err.response.data.message : err.toJSON().message;
   }
 };
 
@@ -56,7 +59,16 @@ const forgotPasswordAPI = async (data) => {
     const response = await users.post("forgotPassword", data);
     return response.data;
   } catch (err) {
-    throw err.response ? err.response.data.message : err.toJSON().message
+    throw err.response ? err.response.data.message : err.toJSON().message;
+  }
+};
+
+const resetPasswordAPI = async (data, resetToken) => {
+  try {
+    const response = await users.patch(`resetPassword/${resetToken}`, data);
+    return response.data;
+  } catch (err) {
+    throw err.response ? err.response.data.message : err.toJSON().message;
   }
 };
 
@@ -179,6 +191,7 @@ export {
   loginUserAPI,
   signupUserAPI,
   forgotPasswordAPI,
+  resetPasswordAPI,
   googleAuthAPI,
   getCurrUserAPI,
   updateCurrUserDetailsAPI,

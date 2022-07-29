@@ -12,6 +12,7 @@ import Account from "./pages/Account";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import GoogleAuth from "./components/auth/GoogleAuth";
 import SavedTopics from "./pages/SavedTopics";
 import Videos from "./pages/Videos";
@@ -50,6 +51,9 @@ function App() {
             </Route>
             <Route path="/forgot-password">
               <ForgotPassword />
+            </Route>
+            <Route path="/reset-password/:resetToken">
+              <ResetPassword />
             </Route>
             <Route path={`/saved-topics`}>
               <SavedTopics />
