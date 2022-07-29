@@ -61,7 +61,7 @@ const topics = [
   "world",
   "nation",
   "business",
-  "tech",
+  "technology",
   "entertainment",
   "sports",
   "science",
