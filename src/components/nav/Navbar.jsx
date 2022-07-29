@@ -80,7 +80,7 @@ const MyNavbar = () => {
 
             {isSignedIn && (
               <NavDropdown
-                title={<img src={photo} className="profile-picture" alt="profile"/>}
+                title={<img src={photo} className="profile-picture" />}
                 id="basic-nav-dropdown"
                 align="end"
                 onClick={toggleButtonHandler}
