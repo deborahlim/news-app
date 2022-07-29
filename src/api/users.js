@@ -102,7 +102,7 @@ const updateCurrUserNewsSettingsAPI = async (data) => {
       "updateMe",
       {
         country: data.country,
-        language: data.langange,
+        language: data.language,
       },
       {
         headers: {
@@ -110,7 +110,6 @@ const updateCurrUserNewsSettingsAPI = async (data) => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (err) {
     throw err.response.data.message;
@@ -131,7 +130,6 @@ const updateCurrUserSavedTopicsAPI = async (data) => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (err) {
     throw err.response.data.message;

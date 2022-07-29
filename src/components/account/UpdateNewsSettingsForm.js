@@ -29,7 +29,7 @@ const UpdateForm = () => {
   const {
     value: enteredLanguage,
     valueChangeHandler: enteredLanguageChangedHandler,
-  } = useInput((value) => countries[value], lang);
+  } = useInput((value) => languages[value], lang);
   const languageOptions = [];
   for (const language in languages) {
     languageOptions.push(
@@ -41,7 +41,7 @@ const UpdateForm = () => {
 
   const updateNewsFeedSettingsHandler = async (event) => {
     event.preventDefault();
-
+console.log(enteredCountry, enteredLanguage)
     let enteredData = {
       country: enteredCountry,
       language: enteredLanguage,
