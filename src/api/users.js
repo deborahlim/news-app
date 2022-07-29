@@ -13,7 +13,8 @@ const googleAuthAPI = async (data) => {
     return { ...response.data, newUser: true, googleAuthUser: true };
   } catch (err) {
     console.dir(err)
-    if (err.response?.data.error?.code === 11000) {
+    // login instead if user email is already in the system
+    if (err.response?.data.error?.code === 11000 || err.response?.data.message === "This email already exists") {
       try {
         const response = await users.post("login", {
           email: data.email,
