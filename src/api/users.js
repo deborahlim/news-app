@@ -12,7 +12,8 @@ const googleAuthAPI = async (data) => {
     const response = await users.post("signup", data);
     return { ...response.data, newUser: true, googleAuthUser: true };
   } catch (err) {
-    if (err.response?.data.error.code === 11000) {
+    console.dir(err)
+    if (err.response?.data.error?.code === 11000) {
       try {
         const response = await users.post("login", {
           email: data.email,
