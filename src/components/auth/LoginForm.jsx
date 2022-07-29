@@ -109,6 +109,11 @@ const LoginForm = () => {
         <Button variant="primary" type="submit" disabled={!formIsValid}>
           Submit
         </Button>
+        <p className="m-3">
+          <NavLink to="/register">Register</NavLink> your account instead
+        </p>
+        <NavLink to="/forgot-password">Forgot your password?</NavLink>
+
         <p className="lead my-3">OR</p>
         <GoogleAuth />
         <div
@@ -116,10 +121,6 @@ const LoginForm = () => {
           id="buttonDiv"
           onClick={onSignIn}
         ></div>
-        <p className="m-3">
-          <NavLink to="/register">Register</NavLink> your account instead
-        </p>
-        <NavLink to="/forgot-password">Forgot your password?</NavLink>
       </Form>
     </div>
   );
