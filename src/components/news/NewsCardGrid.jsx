@@ -76,7 +76,7 @@ const NewsCardGrid = () => {
   } else if (error) {
     content = error;
   } else {
-    content = `No news articles were found. Please try again.`;
+    content = `No news articles were found.`;
   }
   return (
     <>
